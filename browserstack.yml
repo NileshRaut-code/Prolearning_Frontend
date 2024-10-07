@@ -1,5 +1,10 @@
 userName: nimren_wZMXvm
 accessKey: 979pHKibq6GnxB5XKaxz
+projectName: BrowserStack Samples
+buildName: PROLEARNING build\
+buildIdentifier: '#${BUILD_NUMBER}'
+source: jest-js:sample-main:v1.0
+
 platforms:
   - os: Windows
     osVersion: 11
@@ -13,9 +18,12 @@ platforms:
     osVersion: 18
     browserName: safari
     deviceOrientation: portrait
-browserstackLocal: true
-buildName: browserstack-build-1
-projectName: BrowserStack Sample
-debug: false
-networkLogs: false
-consoleLogs: errors
+
+parallelsPerPlatform: 1
+
+browserstackLocal: true 
+
+debug: false 
+networkLogs: false 
+consoleLogs: errors 
+
