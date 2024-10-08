@@ -6,11 +6,12 @@
     "@headlessui/react": "^2.1.1",
     "@reduxjs/toolkit": "^2.2.6",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.4",
+    "browserstack-local": "^1.4.8",
     "chai": "^5.1.1",
+    "dotenv": "^16.0.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "mocha": "^10.7.3",
@@ -25,9 +26,7 @@
     "selenium-webdriver": "^4.25.0",
     "serve": "^14.2.1",
     "tailwindcss": "^3.4.0",
-    "web-vitals": "^2.1.4",
-    "browserstack-local": "^1.4.8",
-    "dotenv": "^16.0.0"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "dev": "set PORT=8000 && react-scripts start ",
@@ -36,7 +35,6 @@
     "eject": "react-scripts eject",
     "sample-test": "browserstack-node-sdk jest src/App.test.js",
     "postinstall": "npm update browserstack-node-sdk"
-
   },
   "eslintConfig": {
     "extends": [
@@ -56,12 +54,17 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {  
-    "selenium-webdriver": "^4.0.0",
-    "mocha": "^10.0.0",
-    "chai": "^4.3.0",
+  "devDependencies": {
+    "@babel/core": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "@babel/preset-react": "^7.25.7",
+    "@testing-library/react": "^16.0.1",
     "@types/jest": "^27.4.0",
+    "babel-jest": "^29.7.0",
     "browserstack-node-sdk": "latest",
-    "jest": "^27.4.7"
+    "chai": "^4.3.0",
+    "jest": "^27.4.7",
+    "mocha": "^10.0.0",
+    "selenium-webdriver": "^4.0.0"
   }
 }
