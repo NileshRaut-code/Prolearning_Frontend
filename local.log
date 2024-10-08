@@ -1,13 +1,13 @@
 
 
-Mon Oct 07 2024 11:44:26:616 GMT+0000 (UTC) -- Binary semantic version is v8.9.10
-Mon Oct 07 2024 11:44:26:617 GMT+0000 (UTC) -- Setting output as extra verbose with request parsing
-Mon Oct 07 2024 11:44:26:684 GMT+0000 (UTC) -- Starting configuration console on http://localhost:45454
-Mon Oct 07 2024 11:44:28:53 GMT+0000 (UTC) -- [SUCCESS] You can now access your local server(s) in our remote browser
+Tue Oct 08 2024 05:48:11:313 GMT+0000 (UTC) -- Binary semantic version is v8.9.10
+Tue Oct 08 2024 05:48:11:314 GMT+0000 (UTC) -- Setting output as extra verbose with request parsing
+Tue Oct 08 2024 05:48:11:371 GMT+0000 (UTC) -- Starting configuration console on http://localhost:45454
+Tue Oct 08 2024 05:48:12:606 GMT+0000 (UTC) -- [SUCCESS] You can now access your local server(s) in our remote browser
 
-Mon Oct 07 2024 11:44:28:86 GMT+0000 (UTC) -- Connecting to BrowserStack using WebSocket protocol...
-Mon Oct 07 2024 11:44:28:86 GMT+0000 (UTC) -- Platform supports WebSocket connections.
+Tue Oct 08 2024 05:48:12:634 GMT+0000 (UTC) -- Connecting to BrowserStack using WebSocket protocol...
+Tue Oct 08 2024 05:48:12:634 GMT+0000 (UTC) -- Platform supports WebSocket connections.
 
-Mon Oct 07 2024 11:44:28:187 GMT+0000 (UTC) -- Press Ctrl-C to exit
+Tue Oct 08 2024 05:48:12:735 GMT+0000 (UTC) -- Press Ctrl-C to exit
 
 
