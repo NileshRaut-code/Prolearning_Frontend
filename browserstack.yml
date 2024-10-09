@@ -1,0 +1,29 @@
+userName: nimren_wZMXvm
+accessKey: 979pHKibq6GnxB5XKaxz
+projectName: BrowserStack Samples
+buildName: PROLEARNING build\
+buildIdentifier: '#${BUILD_NUMBER}'
+source: jest-js:sample-main:v1.0
+
+platforms:
+  - os: Windows
+    osVersion: 11
+    browserName: Chrome
+    browserVersion: latest
+  - deviceName: Samsung Galaxy S23 Ultra
+    osVersion: 13.0
+    browserName: chrome
+    deviceOrientation: portrait
+  - deviceName: iPhone 16 Pro Max
+    osVersion: 18
+    browserName: safari
+    deviceOrientation: portrait
+
+parallelsPerPlatform: 1
+
+browserstackLocal: true 
+
+debug: false 
+networkLogs: false 
+consoleLogs: errors 
+

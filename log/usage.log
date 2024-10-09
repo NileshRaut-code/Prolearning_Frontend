@@ -1,0 +1,159 @@
+2024-10-06 11:03:28 - [32minfo[39m: Creating configuration file...
+2024-10-06 11:03:28 - [32minfo[39m: Adding new script(s) in package.json...
+2024-10-06 11:03:28 - [32minfo[39m: Setup completed
+2024-10-07 11:44:24 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-07 11:44:24 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-07 11:44:28 - [32minfo[39m: Local binary started successfully
+2024-10-07 11:44:28 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-07 11:44:28 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-07 11:44:28 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-07 11:44:38 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-07 11:44:38 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-07 11:44:38 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-07 11:44:48 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-07 11:44:48 - [32minfo[39m: Visit https://observability.browserstack.com/builds/mfvehhvlzhciu1hggcv7nstn7g8rxylvmghp2nvs to view build report, insights, and many more debugging information all at one place!
+
+2024-10-07 11:44:53 - [32minfo[39m: Local binary stopped
+2024-10-08 05:48:09 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 05:48:09 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 05:48:12 - [32minfo[39m: Local binary started successfully
+2024-10-08 05:48:13 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 05:48:13 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 05:48:13 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 05:48:25 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:48:25 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:48:25 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:48:42 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 05:48:42 - [32minfo[39m: Visit https://observability.browserstack.com/builds/kqpzi5qx4ytoprbmvijgqcwhyrblhumwjt1mg7ui to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 05:48:46 - [32minfo[39m: Local binary stopped
+2024-10-08 05:58:28 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 05:58:28 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 05:58:32 - [32minfo[39m: Local binary started successfully
+2024-10-08 05:58:32 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 05:58:32 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 05:58:32 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 05:58:44 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:58:44 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:58:44 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 05:59:00 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 05:59:00 - [32minfo[39m: Visit https://observability.browserstack.com/builds/4ry7vyujpyrxlodmrcifzzqrbesffgzmsljmst25 to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 05:59:04 - [32minfo[39m: Local binary stopped
+2024-10-08 06:01:42 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:01:42 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:01:44 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:01:44 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:01:45 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:01:45 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:01:53 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:01:53 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:01:53 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:02:04 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:02:04 - [32minfo[39m: Visit https://observability.browserstack.com/builds/sfrd1f68myvikqbplonfy36v19frr64joclmklon to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:02:09 - [32minfo[39m: Local binary stopped
+2024-10-08 06:04:16 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:04:16 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:04:18 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:04:19 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:04:19 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:04:19 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:04:27 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:04:28 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:04:27 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:04:39 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:04:39 - [32minfo[39m: Visit https://observability.browserstack.com/builds/c0yyramfqhyewbpzrg3lxqhpkgda4vtxsayb4lqp to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:04:43 - [32minfo[39m: Local binary stopped
+2024-10-08 06:05:36 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:05:37 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:05:38 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:05:39 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:05:39 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:05:39 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:05:47 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:05:48 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:05:47 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:05:59 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:05:59 - [32minfo[39m: Visit https://observability.browserstack.com/builds/wv1mp4sdpokqwezy0y4pslkexr7zc5lzalvsd9ar to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:06:04 - [32minfo[39m: Local binary stopped
+2024-10-08 06:06:54 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:06:54 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:06:56 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:06:57 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:06:57 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:06:57 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:07:04 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:07:05 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:07:05 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:07:16 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:07:17 - [32minfo[39m: Visit https://observability.browserstack.com/builds/kzwjhazjx5ezifqcuwr7t8taltfg9udwxajlpdl5 to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:07:21 - [32minfo[39m: Local binary stopped
+2024-10-08 06:08:37 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:08:37 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:08:39 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:08:39 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:08:40 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:08:40 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:08:48 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:08:47 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:08:48 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:09:02 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:09:03 - [32minfo[39m: Visit https://observability.browserstack.com/builds/vg83ott1m1qgx51nkdbbzsirfxtp23lgdawaravx to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:09:07 - [32minfo[39m: Local binary stopped
+2024-10-08 06:10:27 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:10:27 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:10:29 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:10:30 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:10:30 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:10:30 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:10:38 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:10:38 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:10:39 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:10:53 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:10:53 - [32minfo[39m: Visit https://observability.browserstack.com/builds/m58kfzhfcfjdmnvpzsmtsa0khnyhuc4sawsghyro to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:10:58 - [32minfo[39m: Local binary stopped
+2024-10-08 06:13:19 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:13:19 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:13:21 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:13:22 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:13:22 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:13:22 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:13:30 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:13:31 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:13:31 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:13:46 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:13:46 - [32minfo[39m: Visit https://observability.browserstack.com/builds/d0jhgmp0p2pxdegdzngvh54qevyygvazfuzrqyxt to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:13:51 - [32minfo[39m: Local binary stopped
+2024-10-08 06:15:40 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:15:40 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:15:42 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:15:43 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:15:43 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:15:43 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:15:51 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:15:51 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:15:52 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:16:57 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:16:58 - [32minfo[39m: Visit https://observability.browserstack.com/builds/pg9rpgrjr7gjjcok27tgpdy5zbqpmktm0qpxiqvi to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:17:02 - [32minfo[39m: Local binary stopped
+2024-10-08 06:17:41 - [32minfo[39m: Reading configs from /workspaces/Prolearning_Frontend/browserstack.yml
+2024-10-08 06:17:41 - [32minfo[39m: Project and debug logs are captured by default. To disable, set disableAutoCaptureLogs: true in config.
+2024-10-08 06:17:43 - [32minfo[39m: Local binary started successfully
+2024-10-08 06:17:44 - [32minfo[39m: Modifying jest configs to run tests on BrowserStack
+2024-10-08 06:17:44 - [32minfo[39m: Creating jest_browserstack.config.js with browserstack jest configs
+2024-10-08 06:17:44 - [32minfo[39m: Showing jest logs and reporter logs.
+2024-10-08 06:17:52 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:17:52 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:17:52 - [32minfo[39m: Configuring to run tests on BrowserStack
+2024-10-08 06:19:00 - [32minfo[39m: Deleting jest_browserstack.config.js
+2024-10-08 06:19:01 - [32minfo[39m: Visit https://observability.browserstack.com/builds/5qldzdjsfwzjvzlimd7rpwe5lfqepuvxe8ppirwl to view build report, insights, and many more debugging information all at one place!
+
+2024-10-08 06:19:05 - [32minfo[39m: Local binary stopped
