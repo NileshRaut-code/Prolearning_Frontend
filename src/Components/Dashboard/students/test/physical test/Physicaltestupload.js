@@ -1,15 +1,33 @@
-import React ,{useState ,useEffect} from 'react'
+import React ,{useState ,useEffect,useRef} from 'react'
 import Header from '../../../../Navbar/header';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { jsPDF } from 'jspdf';
 const Physicaltestupload = () => {
   const navigate=useNavigate()
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
     const {id}=useParams()
     const [data,Setdata]=useState('')
     const [res,Setresdata]=useState('')
-
+    const handleDownloadPDF = () => {
+      const doc = new jsPDF();
+  
+      doc.setFontSize(18);
+      doc.text(`${data.name} - Test Paper`, 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Teacher: ${data.teacher.fullName}`, 20, 30);
+      doc.text(`Subject: ${data.subject}`, 20, 40);
+      doc.text(`Grade: ${data.standard}`, 20, 50);
+      doc.text(`Total Marks: ${data.score}`, 20, 60);
+  doc.line(0,70,10000,70)
+      data.questions.forEach((item, index) => {
+        doc.text(`Q${index + 1}: ${item.question}`, 20, 80 + (index * 10));
+        doc.text(`Marks: ${item.score}`, 180, 80 + (index * 10));
+      });
+  
+      doc.save(`${data.name}_Test_Paper.pdf`);
+    };
   const [pdffile,setpdffile]=useState('')
     const stdid=useSelector(store=>store.user.data._id)
     const [err,seterr]=useState('')
@@ -35,12 +53,7 @@ const Physicaltestupload = () => {
     else{
       console.log("data");
 
-      // const body={
-      //   studentId:stdid,
-      //   teacherId:data.teacher._id,
-      //   testId:id,
-      //   pdf:pdffile
-      // }
+    
 
 const formData = new FormData();
 formData.append('studentId', stdid);
@@ -66,10 +79,11 @@ formData.append('pdf', pdffile);
     
   return (
     <>
+  
           <div className={`${isSideNavOpen ? 'sm:ml-64' : ''}`}>
           <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
-   {data && <div className='flex justify-center items-center'>
-    <div className="bg-background rounded-lg border p-6 w-full max-w-3xl ">
+   {data && <div  className='flex justify-center items-center'>
+    <div  className="bg-background rounded-lg border p-6 w-full max-w-3xl ">
   <div className="flex flex-col gap-6">
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
@@ -229,6 +243,9 @@ formData.append('pdf', pdffile);
         </svg>
         <span>Submit as PDF</span>
       </button>
+      <button onClick={handleDownloadPDF} className="justify-center rounded-md border bg-background h-10 px-4 py-2">
+                    Download Test Paper as PDF
+                  </button>
     </div>
     {err &&      <p className='text-green-500 mt-2'>{err}</p>
   } 

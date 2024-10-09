@@ -29,6 +29,10 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       setIsDropdownOpen(false);
     }
   };
+  const [isTestDropdownOpen,setTestDropdownOpen]=useState(true)
+  const toggleTestDropdown =()=>{
+    setTestDropdownOpen(!isTestDropdownOpen)
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -161,6 +165,46 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
               <span className="text-sm font-medium">Performance</span>
             </Link>
           )}
+
+{(data?.role === "STUDENT" || data?.role === "TEACHER") && (
+      <div className="relative">
+        <button
+          className="flex items-center gap-2 p-2 w-full text-left rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
+          onClick={toggleTestDropdown}
+        >
+          <FaRegPenToSquare size={20} className="text-red-500" />
+          <span className="text-sm font-medium">Test</span>
+        </button>
+        {isTestDropdownOpen && (
+          <div className="ml-4 mt-2 bg-white shadow-md rounded-md">
+            {data?.role === "STUDENT" && (
+              <>
+                <Link
+                  to={`/${data?.role}/test`}
+                  className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
+                >
+                  MCQ Test
+                </Link>
+                <Link
+                  to={`/${data?.role}/physical-test`}
+                  className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
+                >
+                  Physical Test
+                </Link>
+              </>
+            )}
+            {data?.role === "TEACHER" && (
+              <Link
+                to={`/${data?.role}/check/ptest`}
+                className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
+              >
+                Physical Test Check
+              </Link>
+            )}
+          </div>
+        )}
+      </div>
+    )}
         </div>
       </div>
     </>
