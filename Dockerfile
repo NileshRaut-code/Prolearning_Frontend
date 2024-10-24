@@ -1,4 +1,3 @@
-ENV NEW_RELIC_NO_CONFIG_FILE=true
 # Use an official Node.js image as the base image
 FROM node:18-alpine
 
@@ -22,3 +21,7 @@ EXPOSE 3000
 
 # Start the application
 CMD ["npm", "start"]
+
+ENV NEW_RELIC_NO_CONFIG_FILE=true
+ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=true
+ENV NEW_RELIC_LOG=stdout
