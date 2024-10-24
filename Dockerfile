@@ -1,3 +1,4 @@
+ENV NEW_RELIC_NO_CONFIG_FILE=true
 # Use an official Node.js image as the base image
 FROM node:18-alpine
 
