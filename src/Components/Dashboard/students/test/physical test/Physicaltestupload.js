@@ -6,8 +6,11 @@ import { useSelector } from 'react-redux';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoMdMore } from 'react-icons/io';
 import { jsPDF } from 'jspdf';
+import { MdOutlineFileDownload } from "react-icons/md";
 
 const Physicaltestupload = () => {
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false)
+  
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, Setdata] = useState('');
@@ -98,45 +101,36 @@ const Physicaltestupload = () => {
 
   return (
     <>
-      <Header />
-      {/* Navigation and Test Info */}
-      <div className="m-2 font-semibold text-xl flex flex-row">
-        <button className="pl-48 pr-12" onClick={() => navigate(-1)}>
-          <IoIosArrowBack />
-        </button>
-        <div
-          className="flex flex-row bg-gray-100 rounded-xl place-content-center"
-          style={{
-            width: '860px',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p className="text-slate-500 text-lg font-semibold">TEST NAME</p>
-          <div className="flex flex-row">
-            <p className="text-slate-500 text-lg font-semibold">DUE DATE</p>
-            <button className="p-2">
-              <IoMdMore style={{ fontWeight: 'bold' }} />
-            </button>
-          </div>
-        </div>
-      </div>
-
+      <div className={`${isSideNavOpen ? 'sm:ml-64' : ''} px-4`} >
+      <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
+    
+  
+        <div className='flex flex-row justify-between'>
+                  <div className="m-2 font-semibold text-xl flex flex-row">
+                    <button className='px-2' onClick={() => navigate(-1)}>
+                      <IoIosArrowBack color='black' />
+                    </button>
+                  </div>
+                 
+                </div>
       {/* Main Container */}
-      <div className="max-w-auto mx-auto bg-white rounded-xl mt-8 p-6 grid grid-cols-2 gap-6">
+      <div className="max-w-auto mx-auto bg-white rounded-xl mt-8 p-6 grid grid-cols-2 gap-6 shadow-lg">
         {/* Questions Column */}
         <div className="pr-6">
           {/* Align the heading with the list */}
-          <div className="pb-4">
-            <p className="font-semibold text-lg">LIST OF QUESTIONS</p>
+          <div className="pb-4 flex justify-between items-center">
+            <p className="font-semibold text-lg text-gray-700">LIST OF QUESTIONS</p>
+            <div className="cursor-pointer" onClick={handleDownloadPDF}>
+              <MdOutlineFileDownload size={30} />
+            </div>
           </div>
-          <ul className="pl-2"> {/* Add padding to align with heading */}
+          <ul className="pl-2">
             {data.questions &&
               data.questions.map((item, index) => (
                 <li
                   key={index}
                   className={`flex justify-between items-center rounded-xl py-4 px-4 ${index % 2 === 0
-                    ? 'bg-white border border-sky-200'
+                    ? 'bg-white border border-gray-200'
                     : 'bg-gray-100'
                     }`}
                 >
@@ -149,20 +143,19 @@ const Physicaltestupload = () => {
           </ul>
         </div>
 
-
         {/* Upload and Actions Section */}
         <div className="pl-6 mt-16 flex flex-col gap-4">
           <div className="bg-gray-100 p-2 rounded-lg shadow-md">
             <div className="flex flex-row items-center gap-8">
               <button
                 onClick={() => document.getElementById('file-input').click()}
-                className="bg-orange-500 text-white px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl"
+                className="bg-black text-white px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl"
               >
                 New Upload
               </button>
               <button
                 onClick={fetchRecentFiles}
-                className="bg-white text-orange-500 px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl border border-white"
+                className="bg-white text-black px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl border border-gray-300"
               >
                 Recent
               </button>
@@ -172,7 +165,7 @@ const Physicaltestupload = () => {
           {/* Recent Files Section */}
           {recentFiles.length > 0 && (
             <div className="bg-white p-4 rounded-lg shadow-md">
-              <h3 className="font-bold text-lg mb-4">Recent Uploads</h3>
+              <h3 className="font-bold text-lg text-gray-700 mb-4">Recent Uploads</h3>
               <ul className="space-y-2">
                 {recentFiles.map((file, index) => (
                   <li
@@ -208,7 +201,7 @@ const Physicaltestupload = () => {
           <div className="flex justify-center mt-6">
             <button
               onClick={submittest}
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out"
+              className="bg-gray-700 text-white px-6 py-3 rounded-lg shadow-md hover:bg-gray-800 hover:shadow-lg transition duration-300 ease-in-out"
             >
               Submit Test
             </button>
@@ -221,6 +214,7 @@ const Physicaltestupload = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </>
   );

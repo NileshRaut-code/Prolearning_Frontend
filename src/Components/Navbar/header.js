@@ -245,7 +245,7 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
                     )}
                     {data?.role === "TEACHER" && (
                       <Link
-                        to={`${data?.role}/check/ptest`}
+                        to={`/${data?.role}/check/ptest`}
                         className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
                       >
                         Physical Test Check

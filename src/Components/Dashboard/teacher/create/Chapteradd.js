@@ -91,60 +91,67 @@ const Chapteradd = () => {
 
   return (
     <>
-     <div className={`${isSideNavOpen? 'sm:ml-64': ''}`} >
-     <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen}/>
-     <div className="max-w-xl mx-auto p-5">
-        <div className="mb-5">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Standard:</label>
-          <select
-            id="standardDropdown"
-            value={selectedStandard}
-            onChange={handleStandardChange}
-            className="border border-gray-300 rounded p-2"
-          >
-            <option value=''>Select Standard</option>
-            {standards.map((standard) => (
-              <option key={standard} value={standard}>
-                {standard}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {subjects.length > 0 && (
+      <div className={`${isSideNavOpen ? 'sm:ml-64' : ''}`}>
+        <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
+        <div className="max-w-xl mx-auto p-5">
           <div className="mb-5">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Subject:</label>
+            <label className="block text-gray-800 text-sm font-semibold mb-2">Standard:</label>
             <select
-              id="subjectDropdown"
-              value={selectedSubject}
-              onChange={handleSubjectChange}
-              className="border border-gray-300 rounded p-2"
+              id="standardDropdown"
+              value={selectedStandard}
+              onChange={handleStandardChange}
+              className="border border-gray-300 rounded p-2 text-gray-700 focus:ring-2 focus:ring-gray-500 focus:outline-none shadow-sm"
             >
-              <option value=''>Select Subject</option>
-              {subjects.map((subject) => (
-                <option key={subject._id} value={subject._id}>
-                  {subject.name}
+              <option value=''>Select Standard</option>
+              {standards.map((standard) => (
+                <option key={standard} value={standard}>
+                  {standard}
                 </option>
               ))}
             </select>
           </div>
-        )}
-
-     {subjectdata &&   <form onSubmit={e => e.preventDefault()}>
-          <input type='text' ref={chapterName} className="border border-gray-300 rounded p-2 mb-2 w-full" placeholder="Type chapter name" />
-          <p className={`text-red-500 mt-2 ${submitErr ? 'animate-bounce' : ''}`}>{submitErr}</p>
-          <button
-            onClick={submitData}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
-          >
-            Add the Chapter
-          </button>
-        </form>}
+  
+          {subjects.length > 0 && (
+            <div className="mb-5">
+              <label className="block text-gray-800 text-sm font-semibold mb-2">Subject:</label>
+              <select
+                id="subjectDropdown"
+                value={selectedSubject}
+                onChange={handleSubjectChange}
+                className="border border-gray-300 rounded p-2 text-gray-700 focus:ring-2 focus:ring-gray-500 focus:outline-none shadow-sm"
+              >
+                <option value=''>Select Subject</option>
+                {subjects.map((subject) => (
+                  <option key={subject._id} value={subject._id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+  
+          {subjectdata && (
+            <form onSubmit={e => e.preventDefault()}>
+              <input
+                type='text'
+                ref={chapterName}
+                className="border border-gray-300 rounded p-2 mb-2 w-full text-gray-800 focus:ring-2 focus:ring-gray-500 focus:outline-none shadow-sm"
+                placeholder="Type chapter name"
+              />
+              <p className={`text-red-500 mt-2 ${submitErr ? 'animate-bounce' : ''}`}>{submitErr}</p>
+              <button
+                onClick={submitData}
+                className="bg-gray-800 hover:bg-black text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none shadow-md"
+              >
+                Add the Chapter
+              </button>
+            </form>
+          )}
+        </div>
       </div>
-     </div>
-     
     </>
   );
+  
 };
 
 export default Chapteradd;

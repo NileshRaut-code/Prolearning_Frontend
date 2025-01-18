@@ -33,14 +33,14 @@ const Topics = () => {
         <div className='flex flex-row justify-between'>
           <div className="m-2 font-semibold text-xl flex flex-row">
             <button className='px-2' onClick={() => navigate(-1)}>
-              <IoIosArrowBack color='red' />
+              <IoIosArrowBack color='#4B5563' />
             </button>
-            <p>{data && data?.name}</p>
+            <p className="text-gray-700">{data && data?.name}</p>
           </div>
           {role === "TEACHER" && (
             <div>
               <Link to={`/create/topic/${id}`}>
-                <button className='m-2 px-4 py-2 rounded-xl border border-[#FF725E] hover:scale-105 delay-100'>
+                <button className='m-2 px-4 py-2 rounded-xl border border-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors'>
                   + Add New Topic
                 </button>
               </Link>
@@ -52,10 +52,10 @@ const Topics = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 m-2">
             {data.topics.map((items) => (
               <Link to={`/topic/${items._id}`} key={items._id}>
-                <div className="border border-gray-400 rounded-lg p-4 hover:shadow-lg">
+                <div className="border border-gray-300 rounded-lg p-4 hover:shadow-lg hover:bg-gray-50 transition-all">
                   <div className="flex justify-between items-center">
-                  <h1 className="text-lg font-semibold">{items.name}</h1>
-                    <IoIosArrowForward color='red' size={22} />
+                    <h1 className="text-lg font-semibold text-gray-800">{items.name}</h1>
+                    <IoIosArrowForward color='#4B5563' size={22} />
                   </div>
                 </div>
               </Link>

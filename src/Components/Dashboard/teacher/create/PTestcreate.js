@@ -155,147 +155,170 @@ const TestComponent = () => {
 
   return (
     <>
-     <div className={`${isSideNavOpen? 'sm:ml-64': ''}`} >
-     <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen}/>
-         <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
-     <h1 className="text-3xl font-semibold mb-6 text-gray-800">Create New Test</h1>
-      { <input
+      <div className={`${isSideNavOpen ? 'sm:ml-64' : ''}`}>
+        <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
+        <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
+          <h1 className="text-3xl font-semibold mb-6 text-gray-800">Create New Test</h1>
+  
+          <input
             type="text"
             ref={name}
             placeholder="The test name"
-           className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-          />}
-      <div className="mb-6 mt-4">
-      <label className="block text-gray-700 font-medium">Standard:</label>
-        <select
-          value={selectedStandard}
-          onChange={(e) => {
-            setSelectedStandard(e.target.value);
-            setSubjects([]);
-            setSelectedSubject('');
-            setQuestions([]);
-          }}
-         className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">Select Standard</option>
-          {standards.map((standard) => (
-            <option key={standard} value={standard}>
-              {standard}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {subjects.length > 0 && (
-        <div className="mb-5">
-          <label className="block text-gray-700 font-medium">Subject:</label>
-          <select
-            value={selectedSubject}
-            onChange={(e) => handleSubjectChange(e.target.value)}
-            className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select Subject</option>
-            {subjects.map((subject) => (
-              <option key={subject._id} value={subject._id}>
-                {subject.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-{(selectedStandard && selectedSubject && !isModalOpen) && 
-      
-      <div  onClick={() => handleButtonClick(selectedStandard, selectedSubject)} className="mt-6 p-2 w-fit flex flex-row justify-between items-center bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer"><GiRollingEnergy color='gra' size={30}/> <span className='ml-2' >Genrate the Test Question</span> </div> 
-
-      }
-
-      {isModalOpen && (
-        
-        <div className="pt-40 fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto ">
-      <div className=" p-6 rounded-lg shadow-lg relative">
-        <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          standard={selectedStandard} // Example standard ID
-          subject={selectedSubject} // Example subject ID
-        />
-        </div></div>
-      )}
-
+            className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+          />
   
-
-{questions.map((q, index) => (
-          <div key={index} className="p-5 border-b border-gray-300">
-            <div className='flex flex-col gap-4'>
-              <div className='flex flex-row gap-4'>
-              <input
-                type="text"
-                value={q.question}
-                onChange={(e) => handleQuestionChange(index, e.target.value)}
-                placeholder="Enter question"
-                className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-              /> 
-                  <MdDelete size={40} onClick={() => handleRemoveQuestion(index)}
-                  className="mt-1" color='red'/>
-              
-                </div>
-              <div className="flex gap-4">
-               
-                <select
-                  value={q.chapterId}
-                  onChange={(e) => handleChapterChange(index, e.target.value)}
-                  className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">{q.topicId ? "Already Linked" : "Select Chapter"}</option>
-                  {q.availableChapters &&
-                    q.availableChapters.map((chapter) => (
-                      <option key={chapter._id} value={chapter._id}>
-                        {chapter.name}
-                      </option>
-                    ))}
-                </select>
-                <select
-                  value={q.topicId}
-                  onChange={(e) => handleTopicChange(index, e.target.value)}
-                  className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">{q.topicId ? "Already Linked" : "Select Topic"}</option>
-                  {q.topics &&
-                    q.topics.map((topic) => (
-                      <option key={topic._id} value={topic._id}>
-                        {topic.name}
-                      </option>
-                    ))}
-                </select>
-                <input
-                  type="number"
-                  value={scores[index] || q.score}
-                  onChange={(e) => handleScoreChange(index, parseInt(e.target.value, 10) || 0)}
-                  placeholder="Enter score"
-                  className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
+          <div className="mb-6 mt-4">
+            <label className="block text-gray-700 font-medium">Standard:</label>
+            <select
+              value={selectedStandard}
+              onChange={(e) => {
+                setSelectedStandard(e.target.value);
+                setSubjects([]);
+                setSelectedSubject('');
+                setQuestions([]);
+              }}
+              className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+            >
+              <option value="">Select Standard</option>
+              {standards.map((standard) => (
+                <option key={standard} value={standard}>
+                  {standard}
+                </option>
+              ))}
+            </select>
+          </div>
+  
+          {subjects.length > 0 && (
+            <div className="mb-5">
+              <label className="block text-gray-700 font-medium">Subject:</label>
+              <select
+                value={selectedSubject}
+                onChange={(e) => handleSubjectChange(e.target.value)}
+                className="block w-full mt-2 p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+              >
+                <option value="">Select Subject</option>
+                {subjects.map((subject) => (
+                  <option key={subject._id} value={subject._id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+  
+          {selectedStandard && selectedSubject && !isModalOpen && (
+            <div
+              onClick={() => handleButtonClick(selectedStandard, selectedSubject)}
+              className="mt-6 p-2 w-fit flex flex-row justify-between items-center bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300 cursor-pointer"
+            >
+              <GiRollingEnergy color="gray" size={30} />
+              <span className="ml-2">Generate the Test Question</span>
+            </div>
+          )}
+  
+          {isModalOpen && (
+            <div className="pt-40 fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto ">
+              <div className="p-6 rounded-lg shadow-lg relative">
+                <Modal
+                  isOpen={isModalOpen}
+                  onClose={handleCloseModal}
+                  standard={selectedStandard} // Example standard ID
+                  subject={selectedSubject} // Example subject ID
                 />
               </div>
             </div>
+          )}
+  
+          {questions.map((q, index) => (
+            <div key={index} className="p-5 border-b border-gray-300">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-row gap-4">
+                  <input
+                    type="text"
+                    value={q.question}
+                    onChange={(e) => handleQuestionChange(index, e.target.value)}
+                    placeholder="Enter question"
+                    className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+                  />
+                  <MdDelete
+                    size={40}
+                    onClick={() => handleRemoveQuestion(index)}
+                    className="mt-1"
+                    color="red"
+                  />
+                </div>
+                <div className="flex gap-4">
+                  <select
+                    value={q.chapterId}
+                    onChange={(e) => handleChapterChange(index, e.target.value)}
+                    className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+                  >
+                    <option value="">
+                      {q.topicId ? 'Already Linked' : 'Select Chapter'}
+                    </option>
+                    {q.availableChapters &&
+                      q.availableChapters.map((chapter) => (
+                        <option key={chapter._id} value={chapter._id}>
+                          {chapter.name}
+                        </option>
+                      ))}
+                  </select>
+                  <select
+                    value={q.topicId}
+                    onChange={(e) => handleTopicChange(index, e.target.value)}
+                    className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+                  >
+                    <option value="">
+                      {q.topicId ? 'Already Linked' : 'Select Topic'}
+                    </option>
+                    {q.topics &&
+                      q.topics.map((topic) => (
+                        <option key={topic._id} value={topic._id}>
+                          {topic.name}
+                        </option>
+                      ))}
+                  </select>
+                  <input
+                    type="number"
+                    value={scores[index] || q.score}
+                    onChange={(e) => handleScoreChange(index, parseInt(e.target.value, 10) || 0)}
+                    placeholder="Enter score"
+                    className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-gray-500"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+  
+          <div
+            onClick={handleAddQuestion}
+            className="mt-6 p-2 w-fit flex flex-row justify-between items-center bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300 cursor-pointer"
+          >
+            <IoIosAdd color="gray" size={30} />
+            <span>Add Question</span>
           </div>
-        ))}
-    
-      <div onClick={handleAddQuestion} className="mt-6  p-2 w-fit flex flex-row justify-between items-center bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer"><IoIosAdd color='gra' size={30}/> <span  >Add Question</span> </div> 
-
-
-      <div className="mt-6 p-5 bg-gray-100 rounded-lg shadow-md">
-          <p className="text-lg font-semibold text-gray-800">Total Marks: {scores.reduce((acc, score) => acc + score, 0)}</p>
+  
+          <div className="mt-6 p-5 bg-gray-100 rounded-lg shadow-md">
+            <p className="text-lg font-semibold text-gray-800">
+              Total Marks: {scores.reduce((acc, score) => acc + score, 0)}
+            </p>
+          </div>
+          <p className={`text-green-500 mt-2 ${success ? 'animate-bounce' : ''}`}>
+            {success}
+          </p>
+  
+          <div
+            onClick={handleSubmit}
+            className="mt-6 p-2 w-fit flex flex-row justify-between items-center bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300 cursor-pointer"
+          >
+            <IoIosSend color="gray" size={30} />
+            <span>Submit</span>
+          </div>
         </div>
-        <p className={`text-green-500 mt-2 ${success ? 'animate-bounce' : ''}`}>{success}</p>
-
-      
-        <div onClick={handleSubmit} className="mt-6 p-2 w-fit flex flex-row justify-between items-center bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer"><IoIosSend color='gra' size={30}/> <span >Submit</span> </div> 
-
-    </div>
-     </div>
+      </div>
     </>
-    
   );
+  
 
 };
 

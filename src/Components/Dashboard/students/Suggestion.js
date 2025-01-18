@@ -17,8 +17,8 @@ const Suggestion = ({ topicId }) => {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-white shadow-md rounded-lg">
-      {/* Title */} 
+    <div className="container mx-auto p-4 bg-white shadow-lg rounded-lg">
+      {/* Title (Optional) */}
 
       {/* Comment Editor */}
       {status && (
@@ -30,8 +30,8 @@ const Suggestion = ({ topicId }) => {
         <button
           onClick={toggleComments}
           className={`${
-            showComments ? "bg-red-500" : "bg-blue-500"
-          } mt-4 px-4 py-2 bg-[#FF725E] text-white rounded-xl transition hover:delay-50 hover:scale-105"`}
+            showComments ? "bg-gray-600" : "bg-gray-800"
+          } mt-4 px-6 py-3 text-white rounded-xl shadow-md transition-transform transform hover:scale-105`}
         >
           {showComments ? "Hide Suggestion" : "Read More Suggestion"}
         </button>

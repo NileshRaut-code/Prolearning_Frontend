@@ -73,11 +73,9 @@ export const Stdtest = () => {
     } else {
       setFilteredTests(
         test.filter((data) => data.name === subject.name)
-
       );
     }
   };
-  
 
   return (
     <>
@@ -86,19 +84,19 @@ export const Stdtest = () => {
           isSideNavOpen={isSideNavOpen}
           setIsSideNavOpen={setIsSideNavOpen}
         />
-        <div className="p-4">
+        <div className="p-6">
           {/* Header Section */}
-          <div className="flex justify items-center mb-4">
-            <div className="font-semibold text-xl flex items-center">
-              <button className="px-2" onClick={() => navigate(-1)}>
-                <IoIosArrowBack color="red" />
+          <div className="flex justify items-center mb-6">
+            <div className="font-semibold text-xl flex items-center text-gray-800">
+              <button className="px-3" onClick={() => navigate(-1)}>
+                <IoIosArrowBack color="gray" />
               </button>
               <p>TEST DETAILS (MCQ)</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-4">
               <select
                 onChange={(e) => handleStatusFilterChange(e.target.value)}
-                className="bg-red-400 text-white px-3 py-1 rounded-md"
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-md"
               >
                 <option value="All">Status</option>
                 <option value="submitted">Submitted</option>
@@ -107,7 +105,7 @@ export const Stdtest = () => {
               </select>
               <select
                 onChange={(e) => handleSubjectFilterChange(e.target.value)}
-                className="bg-red-400 text-white px-3 py-1 rounded-md"
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-md"
               >
                 <option value="All">Subject</option>
                 {subjects &&
@@ -122,38 +120,38 @@ export const Stdtest = () => {
 
           {/* Table Section */}
           {filteredTests ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 border rounded-lg shadow-lg">
-                <thead className="bg-blue-100">
+            <div className="overflow-x-auto shadow-lg rounded-lg border ">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-100">
                   <tr>
-                    <th className="p-2">SR. NO.</th>
-                    <th className="p-2">TEST NAME</th>
-                    <th className="p-2">SUBJECT</th>
-                    <th className="p-2">TOTAL MARKS</th>
-                    <th className="p-2">TIME DURATION</th>
-                    <th className="p-2">DUE DATE</th>
-                    <th className="p-2">STATUS</th>
+                    <th className="p-3 text-left text-gray-800">SR. NO.</th>
+                    <th className="p-3 text-left text-gray-800">TEST NAME</th>
+                    <th className="p-3 text-left text-gray-800">SUBJECT</th>
+                    <th className="p-3 text-left text-gray-800">TOTAL MARKS</th>
+                    <th className="p-3 text-left text-gray-800">TIME DURATION</th>
+                    <th className="p-3 text-left text-gray-800">DUE DATE</th>
+                    <th className="p-3 text-left text-gray-800">STATUS</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 text-center">
                   {filteredTests.map((data, index) => (
                     <tr key={data._id}>
-                      <td className="p-2">{index + 1}</td>
-                      <td className="p-2">
+                      <td className="p-3">{index + 1}</td>
+                      <td className="p-3">
                         <Link
                           to={`/student/test/${data._id}`}
-                          className="text-blue-600 hover:underline"
+                          className="text-gray-600 hover:underline"
                         >
                           {data.testName}
                         </Link>
                       </td>
-                      <td className="p-2">{data.subjectName}</td>
-                      <td className="p-2">{data.totalMarks}</td>
-                      <td className="p-2">{data.timeDuration}</td>
-                      <td className="p-2">{data.dueDate}</td>
-                      <td className="p-2">
+                      <td className="p-3">{data.subjectName}</td>
+                      <td className="p-3">{data.totalMarks}</td>
+                      <td className="p-3">{data.timeDuration}</td>
+                      <td className="p-3">{data.dueDate}</td>
+                      <td className="p-3">
                         <span
-                          className={`px-2 py-1 rounded-full ${
+                          className={`px-3 py-1 rounded-full ${
                             data.status === "submitted"
                               ? "text-green-500"
                               : data.status === "delayed"

@@ -81,14 +81,14 @@ const Createsubject = () => {
         />
         <div className="max-w-xl mx-auto p-5">
           <div className="mb-5">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-900 text-sm font-semibold mb-2">
               Standard:
             </label>
             <select
               id="numberDropdown"
               value={selectedValue}
               onChange={handleChange}
-              className="border border-gray-300 rounded p-2"
+              className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 shadow-sm"
             >
               <option value="">Select Standard</option>
               {standards.map((standard) => (
@@ -101,14 +101,14 @@ const Createsubject = () => {
           {console.log(standardata)}
           {standardata ? (
             standardata === "No Data" ? (
-              <h1>No Standard. You need to add it.</h1>
+              <h1 className="text-gray-900 font-semibold">No Standard. You need to add it.</h1>
             ) : (
               <>
                 <form onSubmit={(e) => e.preventDefault()}>
                   <input
                     type="text"
                     ref={name}
-                    className="border border-gray-300 rounded p-2 mb-2 w-full"
+                    className="border border-gray-300 rounded p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 shadow-sm"
                     placeholder="Type subject name"
                   />
                   <p
@@ -120,7 +120,7 @@ const Createsubject = () => {
                   </p>
                   <button
                     onClick={submitdata}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
+                    className="bg-black hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500"
                   >
                     Add the Subject
                   </button>
@@ -134,6 +134,7 @@ const Createsubject = () => {
       </div>
     </>
   );
+  
 };
 
 export default Createsubject;

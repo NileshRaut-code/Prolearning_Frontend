@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 
 export const Physicaltest = () => {
   const navigate = useNavigate();
-
   const data = useSelector(store => store.user.data);
   const Id = parseInt(data.standard);
   const [subjects, setSubjects] = useState([]);
@@ -68,7 +67,6 @@ export const Physicaltest = () => {
     }
   }, [statusFilter, test]);
 
-
   // Handle subject filter change
   const handleSubjectFilterChange = (subject) => {
     setSubjectFilter(subject);
@@ -90,20 +88,20 @@ export const Physicaltest = () => {
     <>
       <div className={`${isSideNavOpen ? 'sm:ml-64' : ''}`}>
         <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
-        <div className='p-2'>
-          <div className='flex flex-row justify'>
+        <div className="p-4 bg-white shadow-lg">
+          <div className="flex flex-row justify-between items-center">
             <div className="m-2 font-semibold text-xl flex flex-row">
-              <button className='px-2' onClick={() => { navigate(-1) }}>
-                <IoIosArrowBack color='red' />
+              <button className="px-2" onClick={() => { navigate(-1) }}>
+                <IoIosArrowBack color="black" />
               </button>
-              <p>TEST DETAILS (MCQ)</p>
+              <p className="text-gray-700">TEST DETAILS (MCQ)</p>
             </div>
+
             {/* Filters for Subject and Status */}
-          <div className='flex flex-row justify-between items-center'>
-            <div className="flex gap-2">
+            <div className="flex gap-6">
               <select
                 onChange={(e) => handleStatusFilterChange(e.target.value)}
-                className="bg-red-400 text-white px-3 py-1 rounded-md"
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-sm hover:bg-gray-300"
               >
                 <option value="All">Status</option>
                 <option value="submitted">Submitted</option>
@@ -112,7 +110,7 @@ export const Physicaltest = () => {
               </select>
               <select
                 onChange={(e) => handleSubjectFilterChange(e.target.value)}
-                className="bg-red-400 text-white px-3 py-1 rounded-md"
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-sm hover:bg-gray-300"
               >
                 <option value="All">Subject</option>
                 {subjects &&
@@ -124,14 +122,11 @@ export const Physicaltest = () => {
               </select>
             </div>
           </div>
-          </div>
-
-          
 
           {/* Table for displaying tests */}
           {filteredTests ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 border">
+            <div className="overflow-x-auto mt-6">
+              <table className="min-w-full divide-y divide-gray-300 shadow-lg">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -160,33 +155,23 @@ export const Physicaltest = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredTests.map((data, index) => (
                     <tr key={data._id}>
+                      <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {index + 1}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/student/physical-test/${data._id}`} className="text-blue-600 hover:underline">
+                        <Link to={`/student/physical-test/${data._id}`} className="text-gray-600 hover:underline">
                           {data?.name}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data?.subjectName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data?.totalMarks}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data?.timeDuration}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {data?.dueDate}
-                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.subjectName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.totalMarks}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.timeDuration}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.dueDate}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`px-2 py-1 rounded-full ${data.status === 'submitted'
-                              ? 'text-green-500'
+                              ? 'bg-green-100 text-green-700'
                               : data.status === 'delayed'
-                                ? 'text-red-500'
-                                : 'text-yellow-500'
+                                ? 'bg-red-100 text-red-700'
+                                : 'bg-yellow-100 text-yellow-700'
                             }`}
                         >
                           {data.status}

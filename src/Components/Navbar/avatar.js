@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from "react-redux";
-import { RiArrowDropDownLine } from "react-icons/ri";
+// import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Avatar = () => {
     const[check,setcheck]=useState(true)
