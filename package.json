@@ -35,8 +35,11 @@
     "selenium-webdriver": "^4.25.0",
     "serve": "^14.2.1",
     "tailwindcss": "^3.4.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "newrelic": "latest"
   },
+  "type": "module"
+},
   "scripts": {
     "dev": "set PORT=8000 && react-scripts start ",
     "start": "react-scripts start",
