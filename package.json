@@ -1,5 +1,5 @@
 {
-  "name": "blog",
+  "name": "Prolearning",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,11 +35,8 @@
     "selenium-webdriver": "^4.25.0",
     "serve": "^14.2.1",
     "tailwindcss": "^3.4.0",
-    "web-vitals": "^2.1.4",
-    "newrelic": "latest"
+    "web-vitals": "^2.1.4"
   },
-  "type": "module"
-},
   "scripts": {
     "dev": "set PORT=8000 && react-scripts start ",
     "start": "react-scripts start",
