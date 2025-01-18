@@ -1,17 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaAlignJustify } from "react-icons/fa";
-import Avatar from "./avatar";
-import { useSelector } from "react-redux";
-import { IoIosHome } from "react-icons/io";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { FaAngleRight, FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { GrDocumentPerformance } from "react-icons/gr";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { FaBookOpen } from "react-icons/fa";
-import { FaRegPenToSquare } from "react-icons/fa6";
+import { GrHomeRounded } from "react-icons/gr";
+import { IoBookOutline } from "react-icons/io5";
+import { LiaClipboardSolid } from "react-icons/lia";
+import { PiUsers } from "react-icons/pi";
+import { MdOutlineShowChart } from "react-icons/md";
+import { BsClipboard2Check } from "react-icons/bs";
+
+//import { GrHomeRounded, IoBookOutline, LiaClipboardSolid, PiUsers, MdOutlineShowChart, BsClipboard2Check } from "react-icons/fa"; // React icons
+import { useSelector } from "react-redux";
+import Avatar from "./avatar";
 
 const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
   const data = useSelector((store) => store.user.data);
+  const [isTestDropdownOpen, setTestDropdownOpen] = useState(false);
+  const toggleTestDropdown = () => {
+    setTestDropdownOpen(!isTestDropdownOpen);
+  };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -29,10 +37,6 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       setIsDropdownOpen(false);
     }
   };
-  const [isTestDropdownOpen,setTestDropdownOpen]=useState(true)
-  const toggleTestDropdown =()=>{
-    setTestDropdownOpen(!isTestDropdownOpen)
-  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,172 +45,230 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
     };
   }, []);
 
+  // Tabs data (array)
+  const tabs = [
+    {
+      name: "Home",
+      to: `/${data?.role}/dashboard`,
+      icon: <GrHomeRounded size={21} color="black" />, // React Icon
+      hoverIcon: <GrHomeRounded size={21} color="gray" />, // Hover icon color
+      condition: true,
+    },
+    {
+      name: "Study Material",
+      to: `/studymaterial`,
+      icon: <IoBookOutline size={21} color="black" />, // React Icon
+      hoverIcon: <IoBookOutline size={21} color="gray" />, // Hover icon color
+      condition: data?.role !== "PARENT",
+    },
+    {
+      name: "Test",
+      to: "#",
+      icon: <LiaClipboardSolid size={21} color="black" />, // React Icon
+      hoverIcon: <LiaClipboardSolid size={21} color="gray" />, // Hover icon color
+      condition: data?.role === "STUDENT" || data?.role === "TEACHER",
+      dropdown: true,
+    },
+    {
+      name: "Assignment",
+      to: `/${data?.role}/assignment`,
+      icon: <BsClipboard2Check size={21} color="black" />, // React Icon
+      hoverIcon: <BsClipboard2Check size={21} color="gray" />, // Hover icon color
+      condition: data?.role === "STUDENT",
+    },
+    {
+      name: "Performance",
+      to: `/${data?.role}/performance`,
+      icon: <MdOutlineShowChart size={21} color="black" />, // React Icon
+      hoverIcon: <MdOutlineShowChart size={21} color="gray" />, // Hover icon color
+      condition: data?.role !== "TEACHER",
+    },
+    {
+      name: "Community",
+      to: `/${data?.role}/community`,
+      icon: <PiUsers size={21} color="black" />, // React Icon
+      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      condition: data?.role === "STUDENT",
+    },
+  ];
+
   return (
     <>
-      <nav className="bg-[#FF725E] border-b border-black">
-        <div className="max-w-screen-2xl flex items-center justify-between mx-auto p-4">
-   <div className="flex flex-row ">
-   {!isSideNavOpen && (
-            <button
-              onClick={toggleSideNav}
-              className="p-2 bg-[#FF725E] text-white rounded-full focus:outline-none"
-            >
-              <FaAlignJustify />
-            </button>
-          )}
-          <div className="flex items-center space-x-3">
-            <span className="text-2xl font-semibold text-white">
-              HI! {data?.fullName}
-            </span>
-          </div>
-   </div>
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={toggleDropdown}
-              className="inline-flex items-center justify-center rounded-full focus:outline-none"
-            >
-              <Avatar />
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                <Link
-                  to={`/${data?.role}/dashboard`}
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/profile"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                >
-                  Profile
-                </Link>
-                <Link
-                  to="/logout"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                >
-                  Logout
-                </Link>
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
+     <nav className="bg-white ">
+  <div className="max-w-screen-2xl flex items-center justify-between mx-auto p-4">
+    <div className="flex flex-row ">
+      {!isSideNavOpen && (
+        <button
+          onClick={toggleSideNav}
+          className="p-2 bg-white text-gray-700 rounded-full focus:outline-none"
+        >
+          <RxHamburgerMenu size={21} />
+        </button>
+      )}
+      {/* <div className="flex items-center space-x-3">
+        <span className="text-xl font-semibold text-gray-700">
+          HI! {data?.fullName}
+        </span>
+      </div> */}
+      <div className="flex items-center space-x-4">
+  <Link
+    to="/courses"
+    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
+  >
+    Courses
+  </Link>
+  <Link
+    to="/ai-tool"
+    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
+  >
+    Contest 
+  </Link>
+  <Link
+    to="/blog"
+    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
+  >
+    Blog
+  </Link>
+  <Link
+    to="/other"
+    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
+  >
+    Other
+  </Link>
+</div>
 
-      <div
-        className={`fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform ${
-          isSideNavOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out`}
-      >
-        <div className="flex justify-between items-center p-4 border-b">
-          <h1 className="text-2xl font-bold">Prolearning</h1>
-          <button
-            onClick={toggleSideNav}
-            className="p-2 text-black bg-gray-200 rounded-full"
-          >
-            <IoMdClose size={20} />
-          </button>
-        </div>
-        <div className="flex flex-col p-4 space-y-2">
+    </div>
+    <div className="relative" ref={dropdownRef}>
+      <div className="flex flex-row">
+      <div className="flex items-center bg-gray-200 text-gray-500 p-1 rounded-md mx-6 drop-shadow-lg">
+    {/* Search Icon before the text */}
+    <FaSearch size={16} className="text-gray-500 mx-2" />
+
+    {/* Small, rounded input field */}
+    <input
+  type="text"
+  placeholder="Search..."
+  className="bg-transparent text-gray-500 w-40 px-2 py-1 outline-none border-none"
+/>
+  </div>
+
+        <button
+          onClick={toggleDropdown}
+          className="inline-flex items-center justify-center rounded-full focus:outline-none drop-shadow-lg"
+        >
+          <Avatar />
+        </button>
+      </div>
+      {isDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
           <Link
             to={`/${data?.role}/dashboard`}
-            className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
           >
-            <IoIosHome size={20} className="text-red-500" />
-            <span className="text-sm font-medium">Home</span>
+            Home
           </Link>
-          {data?.role !== "PARENT" && (
-            <Link
-              to="/studymaterial"
-              className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
-            >
-              <FaBookOpen size={20} className="text-red-500" />
-              <span className="text-sm font-medium">Study Material</span>
-            </Link>
-          )}
-       {data?.role === "STUDENT" &&   <Link
-            to={`/${data?.role}/test`}
-            className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
+          <Link
+            to="/profile"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
           >
-            <FaRegPenToSquare size={20} className="text-red-500" />
-            <span className="text-sm font-medium">MCQ Test</span>
-          </Link>}
-          {data?.role === "TEACHER" &&   <Link
-            to={`/${data?.role}/check/ptest`}
-            className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
+            Profile
+          </Link>
+          <Link
+            to="/logout"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
           >
-            <FaRegPenToSquare size={20} className="text-red-500" />
-            <span className="text-sm font-medium">Physical Test Check</span>
-          </Link>}
-          {data?.role === "STUDENT" && (
-            <Link
-              to={`/${data?.role}/physical-test`}
-              className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
-            >
-              <FaRegPenToSquare size={20} className="text-red-500" />
-              <span className="text-sm font-medium">Physical Test</span>
-            </Link>
-          )}
-          {data?.role === "STUDENT" && (
-            <Link
-              to={`/${data?.role}/community`}
-              className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
-            >
-              <FaPeopleGroup size={20} className="text-red-500" />
-              <span className="text-sm font-medium">Community</span>
-            </Link>
-          )}
-          {data?.role !== "TEACHER" && (
-            <Link
-              to={`/${data?.role}/performance`}
-              className="flex items-center gap-2 p-2 rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
-            >
-              <GrDocumentPerformance size={20} className="text-red-500" />
-              <span className="text-sm font-medium">Performance</span>
-            </Link>
-          )}
+            Logout
+          </Link>
+        </div>
+      )}
+    </div>
+  </div>
+</nav>
 
-{(data?.role === "STUDENT" || data?.role === "TEACHER") && (
-      <div className="relative">
-        <button
-          className="flex items-center gap-2 p-2 w-full text-left rounded-md hover:bg-[#FF725E] hover:text-white transition-colors"
-          onClick={toggleTestDropdown}
-        >
-          <FaRegPenToSquare size={20} className="text-red-500" />
-          <span className="text-sm font-medium">Test</span>
-        </button>
-        {isTestDropdownOpen && (
-          <div className="ml-4 mt-2 bg-white shadow-md rounded-md">
-            {data?.role === "STUDENT" && (
+<div
+  className={`fixed top-0 left-0 w-64 text-gray-700 h-full bg-white shadow-lg transform ${isSideNavOpen ? "translate-x-0" : "-translate-x-full"
+    } transition-transform duration-300 ease-in-out drop-shadow-lg`}
+>
+  <div className="flex justify-between items-center p-4">
+    <div className="flex flex-row justify-between">
+      <h1 className="text-2xl text-gray-700 font-bold">Prolearning</h1>
+    </div>
+
+    <button
+      onClick={toggleSideNav}
+      className="p-2 text-gray-700 bg-gray-200 rounded-full"
+    >
+      <IoMdClose size={20} />
+    </button>
+  </div>
+  <div className="flex flex-col p-4 space-y-4"> {/* Increased space-y-2 to space-y-4 */}
+    {tabs.map(
+      (tab, index) =>
+        tab.condition && (
+          <div key={index} className="relative">
+            {tab.dropdown ? (
               <>
-                <Link
-                  to={`/${data?.role}/test`}
-                  className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
+                <button
+                  className="flex justify-between gap-2 p-2 w-full text-left rounded-md transition-colors group"
+                  onClick={toggleTestDropdown}
                 >
-                  MCQ Test
-                </Link>
-                <Link
-                  to={`/${data?.role}/physical-test`}
-                  className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
-                >
-                  Physical Test
-                </Link>
+                  <div className="flex flex-row items-center ">
+                    {isTestDropdownOpen ? tab.hoverIcon : tab.icon}
+                    <span className="text-lg text-gray-700 px-2 font-medium group-hover:text-gray-800">
+                      {tab.name}
+                    </span>
+                  </div>
+                  <div className="py-2 group">
+                    <FaAngleRight
+                      size={16}
+                      className="text-gray-700 group-hover:text-gray-800 transition-colors"
+                    />
+                  </div>
+                </button>
+                {isTestDropdownOpen && (
+                  <div className="ml-4 mt-2 bg-white shadow-md rounded-md">
+                    {data?.role === "STUDENT" && (
+                      <>
+                        <Link
+                          to={`/student/test`}
+                          className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
+                        >
+                          MCQ Test
+                        </Link>
+                        <Link
+                          to={`/student/physical-test`}
+                          className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
+                        >
+                          Physical Test
+                        </Link>
+                      </>
+                    )}
+                    {data?.role === "TEACHER" && (
+                      <Link
+                        to={`${data?.role}/check/ptest`}
+                        className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
+                      >
+                        Physical Test Check
+                      </Link>
+                    )}
+                  </div>
+                )}
               </>
-            )}
-            {data?.role === "TEACHER" && (
+            ) : (
               <Link
-                to={`/${data?.role}/check/ptest`}
-                className="block px-4 py-2 text-gray-800 hover:bg-[#FF725E] hover:text-white"
+                to={tab.to}
+                className="flex items-center gap-2 p-2 rounded-md transition-colors bg-white hover:bg-gray-300 text-gray-700 hover:text-gray-800"
               >
-                Physical Test Check
+                {tab.icon}
+                <span className="text-lg font-medium">{tab.name}</span>
               </Link>
             )}
           </div>
-        )}
-      </div>
+        )
     )}
-        </div>
-      </div>
+  </div>
+</div>
+
     </>
   );
 };

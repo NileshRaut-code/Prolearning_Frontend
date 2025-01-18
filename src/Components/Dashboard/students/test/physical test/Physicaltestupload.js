@@ -1,263 +1,229 @@
-import React ,{useState ,useEffect,useRef} from 'react'
+import React, { useState, useEffect } from 'react';
 import Header from '../../../../Navbar/header';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoMdMore } from 'react-icons/io';
 import { jsPDF } from 'jspdf';
+
 const Physicaltestupload = () => {
-  const navigate=useNavigate()
-    const [isSideNavOpen, setIsSideNavOpen] = useState(false);
-    const {id}=useParams()
-    const [data,Setdata]=useState('')
-    const [res,Setresdata]=useState('')
-    const handleDownloadPDF = () => {
-      const doc = new jsPDF();
-  
-      doc.setFontSize(18);
-      doc.text(`${data.name} - Test Paper`, 20, 20);
-      doc.setFontSize(12);
-      doc.text(`Teacher: ${data.teacher.fullName}`, 20, 30);
-      doc.text(`Subject: ${data.subject}`, 20, 40);
-      doc.text(`Grade: ${data.standard}`, 20, 50);
-      doc.text(`Total Marks: ${data.score}`, 20, 60);
-  doc.line(0,70,10000,70)
-      data.questions.forEach((item, index) => {
-        doc.text(`Q${index + 1}: ${item.question}`, 20, 80 + (index * 10));
-        doc.text(`Marks: ${item.score}`, 180, 80 + (index * 10));
-      });
-  
-      doc.save(`${data.name}_Test_Paper.pdf`);
-    };
-  const [pdffile,setpdffile]=useState('')
-    const stdid=useSelector(store=>store.user.data._id)
-    const [err,seterr]=useState('')
-    useEffect(() => {
-        function testdata(){
-            axios.defaults.withCredentials = true;
-            axios.get(`${process.env.REACT_APP_API_URL}/api/physicaltest/physical-tests/${id}`).then(res=>Setdata(res.data.data)).catch(err=>console.log(err))
-            // http://localhost:8001/api/physicaltest/already_check/
-            axios.get(`${process.env.REACT_APP_API_URL}/api/physicaltest/already_check/${id}`).then(res=>Setresdata(res.data.data)).catch(err=>console.log(err))
-        }
-        testdata()
-    }, [id])
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [data, Setdata] = useState('');
+  const [res, Setresdata] = useState('');
+  const [pdffile, setpdffile] = useState('');
+  const stdid = useSelector((store) => store.user.data._id);
+  const [err, seterr] = useState('');
+  const [recentFiles, setRecentFiles] = useState([]);
 
-    function submittest() {
-       
-        if(!pdffile){
-          seterr("Pdf File Required to Submit Test")
-          setTimeout(() => {
-            seterr('')
-          }, 3000);
-          return
-        }
-    else{
-      console.log("data");
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text(`${data.name} - Test Paper`, 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Teacher: ${data.teacher.fullName}`, 20, 30);
+    doc.text(`Subject: ${data.subject}`, 20, 40);
+    doc.text(`Grade: ${data.standard}`, 20, 50);
+    doc.text(`Total Marks: ${data.score}`, 20, 60);
+    doc.line(10, 70, 200, 70);
 
-    
+    data.questions.forEach((item, index) => {
+      doc.text(`Q${index + 1}: ${item.question}`, 20, 80 + index * 10);
+      doc.text(`Marks: ${item.score}`, 180, 80 + index * 10);
+    });
 
-const formData = new FormData();
-formData.append('studentId', stdid);
-formData.append('teacherId', data.teacher._id,);
-formData.append('testId',id);
-formData.append('pdf', pdffile);
-      axios.defaults.withCredentials = true;
-      axios
+    doc.save(`${data.name}_Test_Paper.pdf`);
+  };
+
+  const fetchRecentFiles = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/physicaltest/recent-files`
+      );
+      setRecentFiles(response.data.files);
+    } catch (error) {
+      console.error('Error fetching recent files:', error);
+    }
+  };
+
+  useEffect(() => {
+    async function testdata() {
+      try {
+        axios.defaults.withCredentials = true;
+        const testResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/physicaltest/physical-tests/${id}`
+        );
+        Setdata(testResponse.data.data);
+
+        const resResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/physicaltest/already_check/${id}`
+        );
+        Setresdata(resResponse.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    testdata();
+  }, [id]);
+
+  const submittest = () => {
+    if (!pdffile) {
+      seterr('PDF File Required to Submit Test');
+      setTimeout(() => seterr(''), 3000);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('studentId', stdid);
+    formData.append('teacherId', data.teacher._id);
+    formData.append('testId', id);
+    formData.append('pdf', pdffile);
+
+    axios.defaults.withCredentials = true;
+    axios
       .post(
         `${process.env.REACT_APP_API_URL}/api/physicaltest/answer-copies`,
         formData
       )
-      .then((res) => {seterr("Succesfully Submitted Test");
-        setTimeout(() => {
-          navigate('/student/physical-test')
-        }, 3000);
+      .then(() => {
+        seterr('Successfully Submitted Test');
+        setTimeout(() => navigate('/student/physical-test'), 3000);
       })
-      .catch((err) => console.log(err));
-      seterr("some Error Caught while Submitting Test")
-    }
-        
-    }
-    
+      .catch((error) => {
+        console.error(error);
+        seterr('Some Error Caught while Submitting Test');
+      });
+  };
+
   return (
     <>
-  
-          <div className={`${isSideNavOpen ? 'sm:ml-64' : ''}`}>
-          <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen} />
-   {data && <div  className='flex justify-center items-center'>
-    <div  className="bg-background rounded-lg border p-6 w-full max-w-3xl ">
-  <div className="flex flex-col gap-6">
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-6 h-6 text-muted-foreground"
-          >
-            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
-          </svg>
-          <h1 className="text-2xl font-bold">{data.name}</h1>
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-5 h-5"
-          >
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>{data.teacher.fullName}</span>
-        </div>
-      </div>
-      <div className="flex items-center gap-2 text-muted-foreground">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5"
+      <Header />
+      {/* Navigation and Test Info */}
+      <div className="m-2 font-semibold text-xl flex flex-row">
+        <button className="pl-48 pr-12" onClick={() => navigate(-1)}>
+          <IoIosArrowBack />
+        </button>
+        <div
+          className="flex flex-row bg-gray-100 rounded-xl place-content-center"
+          style={{
+            width: '860px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
         >
-          <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-        </svg>
-        <span>{data.subject}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5"
-        >
-          <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path>
-          <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path>
-          <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>
-        </svg>
-        <span>Grade {data.standard}</span>
-      </div>
-    </div>
-    <div className="grid gap-4 bg-muted p-4 rounded-md">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-5 h-5 text-muted-foreground"
-          >
-            <path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"></path>
-            <path d="M16 8 2 22"></path>
-            <path d="M17.5 15H9"></path>
-          </svg> */}
-          
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-5 h-5"
-          >
-            <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
-          </svg>
-          <span>Total Marks :{data.score}</span>
+          <p className="text-slate-500 text-lg font-semibold">TEST NAME</p>
+          <div className="flex flex-row">
+            <p className="text-slate-500 text-lg font-semibold">DUE DATE</p>
+            <button className="p-2">
+              <IoMdMore style={{ fontWeight: 'bold' }} />
+            </button>
+          </div>
         </div>
       </div>
-     
-     <div>
 
-     
-      {  data.questions.map((items,index)=>{
-            return (<div key={index} className='flex flex-row justify-between my-2'><div key={index}><span className='text-gray-500'>Q.{index+1}</span> {items.question}  </div><div>Marks: {items.score}</div></div>)
-        })}
-   
-     </div>
-     
-    </div>
-     
-    <div className="flex justify-between items-center">
-      <div className="flex items-center gap-2">
-        <input 
-        //ref={pdffile}
-       // value={pdffile}
-       onChange={(e)=>{
-        setpdffile(e.target.files[0])
-       }}
-          className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-          type="file"
-          id="pdf-upload"
-          accept="application/pdf"
-        />
-      </div>
-   <button onClick={submittest} className="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5"
-        >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="17 8 12 3 7 8"></polyline>
-          <line x1="12" x2="12" y1="3" y2="15"></line>
-        </svg>
-        <span>Submit as PDF</span>
-      </button>
-      <button onClick={handleDownloadPDF} className="justify-center rounded-md border bg-background h-10 px-4 py-2">
-                    Download Test Paper as PDF
-                  </button>
-    </div>
-    {err &&      <p className='text-green-500 mt-2'>{err}</p>
-  } 
-  </div>
-</div>
-    </div>}
-    <div className='flex justify-center items-center'>
-    <div className="bg-background rounded-lg border p-6 w-full max-w-3xl ">
-   <div> {res &&<><h2>Already Submited</h2> <Link to={`/student/ptest/result/${res?._id}`}>Check The Result</Link></>}</div>
-          </div></div></div>
-    </> 
-  )
-}
+      {/* Main Container */}
+      <div className="max-w-auto mx-auto bg-white rounded-xl mt-8 p-6 grid grid-cols-2 gap-6">
+        {/* Questions Column */}
+        <div className="pr-6">
+          {/* Align the heading with the list */}
+          <div className="pb-4">
+            <p className="font-semibold text-lg">LIST OF QUESTIONS</p>
+          </div>
+          <ul className="pl-2"> {/* Add padding to align with heading */}
+            {data.questions &&
+              data.questions.map((item, index) => (
+                <li
+                  key={index}
+                  className={`flex justify-between items-center rounded-xl py-4 px-4 ${index % 2 === 0
+                    ? 'bg-white border border-sky-200'
+                    : 'bg-gray-100'
+                    }`}
+                >
+                  <span className="text-gray-700 text-sm font-medium">
+                    {index + 1}. {item.question}
+                  </span>
+                  <span className="text-gray-500 text-sm">{item.score} Marks</span>
+                </li>
+              ))}
+          </ul>
+        </div>
 
-export default Physicaltestupload
+
+        {/* Upload and Actions Section */}
+        <div className="pl-6 mt-16 flex flex-col gap-4">
+          <div className="bg-gray-100 p-2 rounded-lg shadow-md">
+            <div className="flex flex-row items-center gap-8">
+              <button
+                onClick={() => document.getElementById('file-input').click()}
+                className="bg-orange-500 text-white px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl"
+              >
+                New Upload
+              </button>
+              <button
+                onClick={fetchRecentFiles}
+                className="bg-white text-orange-500 px-2 text-sm py-2 rounded-lg shadow-sm hover:shadow-xl border border-white"
+              >
+                Recent
+              </button>
+            </div>
+          </div>
+
+          {/* Recent Files Section */}
+          {recentFiles.length > 0 && (
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="font-bold text-lg mb-4">Recent Uploads</h3>
+              <ul className="space-y-2">
+                {recentFiles.map((file, index) => (
+                  <li
+                    key={index}
+                    className="flex justify-between items-center border px-4 py-2 rounded-lg"
+                  >
+                    <span>{file.name}</span>
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 underline"
+                    >
+                      View
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* File Upload Section */}
+          <div className="border-2 border-dashed border-gray-300 p-6 rounded-lg">
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setpdffile(e.target.files[0])}
+              className="block w-full text-sm text-gray-500"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={submittest}
+              className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition duration-300 ease-in-out"
+            >
+              Submit Test
+            </button>
+          </div>
+
+          {/* Error Message */}
+          {err && (
+            <div className="text-red-500 text-center mt-4 font-medium">
+              {err}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Physicaltestupload;

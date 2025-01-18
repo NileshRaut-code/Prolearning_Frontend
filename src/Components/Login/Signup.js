@@ -133,7 +133,7 @@ export const Signup = () => {
                                 {isLogging ? 
               <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div> :
          
-              "Sign Up"}
+              "SIGN UP"}
                         </button>
                             </div>
                             {err &&  <div className="text-red-500 font-medium">{err}</div>}
