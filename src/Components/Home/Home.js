@@ -40,34 +40,32 @@ const Home = () => {
         </div>
       </nav>
 
-      <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
+      <div className="flex flex-col lg:flex-row items-center gap-12">
+      <div className="p-8">
               <img
-                className="w-full rounded-lg shadow-2xl"
+                className="w-full lg:w-[40vw] rounded-lg shadow-2xl"
                 src="https://img.freepik.com/free-vector/learning-concept-illustration_114360-3896.jpg?ga=GA1.1.737633284.1719914973&semt=sph"
                 alt="Learning concept illustration"
               />
             </div>
-            <div className="lg:w-1/2 space-y-6">
-              <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+              <div className="w-full lg:lg:w-[50vw] space-y-6 mb-8">
+              <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl text-center lg:text-left">
                 ProLearning is Changing the World
               </h1>
               <p className="text-xl text-gray-500">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore dolor alias aut, adipisci ad voluptates placeat cupiditate. Quidem, vitae voluptatem laborum officiis molestias minus perferendis nulla sed sit animi est! Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </p>
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center lg:justify-start">
                 <Link to="/courses">
-                  <button className="px-8 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-lg hover:from-orange-600 hover:to-red-700 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                  <button className=" px-8 py-3 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-lg hover:from-orange-600 hover:to-red-700 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
                     Explore Courses
                   </button>
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
-      </main>
+      </div>
+
+    
 
       <footer className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
