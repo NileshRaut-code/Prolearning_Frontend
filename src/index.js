@@ -37,6 +37,7 @@ import { TCHome } from "./Components/Dashboard/teacher/TestCheck/TCHome.js";
 import TestCheckHome from "./Components/Dashboard/teacher/TestCheck/TestCheckHome.js";
 import Ptestres from "./Components/Dashboard/students/results/Ptestres.js";
 import TopicEditor from "./Components/Editor/topicEditor.js";
+import { Notfound } from "./Components/404/Notfound.js";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -196,7 +197,7 @@ const routes = createBrowserRouter([
 },
       {
         path: "*",
-        element: <h1>Not Found</h1>,
+        element: <Notfound/>,
       },
     
   
