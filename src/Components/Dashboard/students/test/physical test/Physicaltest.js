@@ -145,7 +145,7 @@ export const Physicaltest = () => {
                       Time Duration
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Due Date
+                      Assigned Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
@@ -161,10 +161,10 @@ export const Physicaltest = () => {
                           {data?.name}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.subjectName}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.totalMarks}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.subject}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.score}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{data?.timeDuration}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.dueDate}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{data?.createdAt}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`px-2 py-1 rounded-full ${data.status === 'submitted'
