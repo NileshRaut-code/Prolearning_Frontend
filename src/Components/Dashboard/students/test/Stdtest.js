@@ -145,10 +145,10 @@ export const Stdtest = () => {
                           {data.testName}
                         </Link>
                       </td>
-                      <td className="p-3">{data.subjectName}</td>
+                      <td className="p-3">{data.subject}</td>
                       <td className="p-3">{data.totalMarks}</td>
                       <td className="p-3">{data.timeDuration}</td>
-                      <td className="p-3">{data.dueDate}</td>
+                      <td className="p-3">{new Date(data.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' }).replace('/', '/')}</td>
                       <td className="p-3">
                         <span
                           className={`px-3 py-1 rounded-full ${

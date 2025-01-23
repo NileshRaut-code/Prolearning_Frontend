@@ -164,7 +164,7 @@ export const Physicaltest = () => {
                       <td className="px-6 py-4 whitespace-nowrap">{data?.subject}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{data?.score}</td>
                       <td className="px-6 py-4 whitespace-nowrap">{data?.timeDuration}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.createdAt}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{new Date(data.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' }).replace('/', '/')}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`px-2 py-1 rounded-full ${data.status === 'submitted'
