@@ -3,10 +3,13 @@ import "react-quill/dist/quill.snow.css";
 import Header from '../Navbar/header.js'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from "react-icons/io";
-import {  useParams } from "react-router-dom";
+import {  useLocation,useParams } from "react-router-dom";
 import FormikRichText from "./index"
 import axios from "axios";
 const Editor =()=>{
+const standard = parseInt(new URLSearchParams(useLocation().search).get('standard'), 10) || 0;
+
+
   const navigate=useNavigate()
   const [isSideNavOpen, setIsSideNavOpen] = useState(false)
    const [data,setdata]=useState("")
@@ -21,6 +24,7 @@ const Editor =()=>{
         'name':title?.current?.value,
         'description':data,
         'chapterId':id,
+        standard
       }
       console.log(body);
       axios.defaults.withCredentials=true;
