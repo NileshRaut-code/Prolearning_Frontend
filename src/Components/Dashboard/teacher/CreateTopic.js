@@ -146,7 +146,7 @@ function CreateTopic() {
   
         {selectedChapter && (
           <div className="mt-4 w-full sm:w-fit">
-            <Link to={`/create/topic/${selectedChapter}`}>
+            <Link to={`/create/topic/${selectedChapter}?standard=${selectedStandard}`}>
               <div className="p-2 bg-black rounded-xl text-white hover:bg-gray-800 transition-colors">
                 Create New Topic
               </div>
