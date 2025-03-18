@@ -42,9 +42,11 @@ export const Signup = () => {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
         }).then(res => {
-            console.log("Successfully created new Account");
-            dispatch(login(res.data.data.user));
+            console.log("Successfully created new Account",res.data.data);
+            dispatch(login(res.data.data));
+           setTimeout(() => {
             navigate("/profile");
+           }, 10);
         }).catch(err => {
             console.log("Issue while creating the new account");
             setLogging(false);
