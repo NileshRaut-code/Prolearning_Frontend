@@ -59,7 +59,7 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       to: `/studymaterial`,
       icon: <IoBookOutline size={21} color="black" />, // React Icon
       hoverIcon: <IoBookOutline size={21} color="gray" />, // Hover icon color
-      condition: data?.role !== "PARENT",
+      condition: data?.role === "STUDENT" || data?.role === "TEACHER",
     },
     {
       name: "Test",
@@ -81,7 +81,7 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       to: `/${data?.role}/performance`,
       icon: <MdOutlineShowChart size={21} color="black" />, // React Icon
       hoverIcon: <MdOutlineShowChart size={21} color="gray" />, // Hover icon color
-      condition: data?.role !== "TEACHER",
+      condition:data?.role === "STUDENT" || data?.role === "PARENT",
     },
     {
       name: "Community",
@@ -89,6 +89,20 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       icon: <PiUsers size={21} color="black" />, // React Icon
       hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
       condition: data?.role === "STUDENT",
+    },
+    {
+      name: "Changerole",
+      to: `/${data?.role}/Changerole`,
+      icon: <PiUsers size={21} color="black" />, // React Icon
+      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      condition: data?.role === "SUPERADMIN",
+    },
+    {
+      name: "Notifications",
+      to: `/${data?.role}/Notifications`,
+      icon: <PiUsers size={21} color="black" />, // React Icon
+      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      condition: data?.role === "SUPERADMIN",
     },
   ];
 

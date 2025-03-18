@@ -13,7 +13,7 @@ const Loading = () => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-transparent items-center justify-center w-screen h-screen">
+    <div className="flex flex-col bg-transparent items-center justify-center w-full h-screen">
       <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-r-4 border-b-4 border-gray-700"></div>
       <div className="mt-8 text-3xl font-bold text-gray-700">
         {text.split('').map((letter, index) => (

@@ -38,6 +38,7 @@ import TestCheckHome from "./Components/Dashboard/teacher/TestCheck/TestCheckHom
 import Ptestres from "./Components/Dashboard/students/results/Ptestres.js";
 import TopicEditor from "./Components/Editor/topicEditor.js";
 import { Notfound } from "./Components/404/Notfound.js";
+import SuperHome from "./Components/Dashboard/superAdmin/SuperHome.js"
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -88,6 +89,11 @@ const routes = createBrowserRouter([
       path:"/student/dashboard",
 
       element:(<RoleAuth aut={true} role={"STUDENT"} ><Student/></RoleAuth>)
+     },
+     {
+      path:"/superadmin/dashboard",
+
+      element:(<RoleAuth aut={true} role={"SUPERADMIN"} ><SuperHome/></RoleAuth>)
      },
      {
       path:"/parent/dashboard",
