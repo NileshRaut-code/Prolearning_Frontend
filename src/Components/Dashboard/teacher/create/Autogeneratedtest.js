@@ -17,7 +17,7 @@ const CreateTestForm = ({ standard, subject, onClose }) => {
 
   const getSubjects = async (standardId) => {
     try {
-      const response = await axios.get(`https://backend-pro-learning.vercel.app/api/subjects/standard/${standardId}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/subjects/standard/${standardId}`);
       return response.data.data.standards[0] ? response.data.data.standards[0].subjects : [];
     } catch (error) {
       console.error('Error fetching subjects:', error);
@@ -27,7 +27,7 @@ const CreateTestForm = ({ standard, subject, onClose }) => {
 
   const getChapters = async (subjectId) => {
     try {
-      const response = await axios.get(`https://backend-pro-learning.vercel.app/api/subjects/${subjectId}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/subjects/${subjectId}`);
       return response.data.data.chapters;
     } catch (error) {
       console.error('Error fetching chapters:', error);
@@ -37,7 +37,7 @@ const CreateTestForm = ({ standard, subject, onClose }) => {
 
   const getTopics = async (chapterId) => {
     try {
-      const response = await axios.get(`https://backend-pro-learning.vercel.app/api/chapters/${chapterId}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chapters/${chapterId}`);
       return response.data.data.topics;
     } catch (error) {
       console.error('Error fetching topics:', error);

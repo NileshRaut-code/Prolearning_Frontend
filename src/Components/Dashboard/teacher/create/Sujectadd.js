@@ -54,7 +54,7 @@ const Createsubject = () => {
     const getSubjects = async (standardId) => {
       try {
         const response = await axios.get(
-          `https://backend-pro-learning.vercel.app/api/subjects/standard/${standardId}`
+          `${process.env.REACT_APP_API_URL}/api/subjects/standard/${standardId}`
         );
         const res = response.data.data.standards[0]
           ? response.data.data.standards[0].subjects

@@ -27,7 +27,7 @@ const Chapteradd = () => {
 
     if (value) {
       try {
-        const response = await axios.get(`https://backend-pro-learning.vercel.app/api/subjects/${value}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/subjects/${value}`);
         setSubjectId(response.data.data._id);
         setSubjectdata(response.data) // Set the subject ID from the response
       } catch (error) {
@@ -74,7 +74,7 @@ const Chapteradd = () => {
   useEffect(() => {
     const getSubjects = async (standardId) => {
       try {
-        const response = await axios.get(`https://backend-pro-learning.vercel.app/api/subjects/standard/${standardId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/subjects/standard/${standardId}`);
         const subjects = response.data.data.standards[0] ? response.data.data.standards[0].subjects : [];
         setSubjects(subjects);
         setSubmitErr(subjects.length === 0 ? 'No subjects available for this standard' : '');

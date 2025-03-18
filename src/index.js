@@ -39,6 +39,7 @@ import Ptestres from "./Components/Dashboard/students/results/Ptestres.js";
 import TopicEditor from "./Components/Editor/topicEditor.js";
 import { Notfound } from "./Components/404/Notfound.js";
 import SuperHome from "./Components/Dashboard/superAdmin/SuperHome.js"
+import StandardAdd from "./Components/Dashboard/teacher/create/StandardAdd.js";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -188,6 +189,11 @@ const routes = createBrowserRouter([
       path:"/teacher/create/chapter",
 
       element:(<RoleAuth aut={true} role={"TEACHER"} ><Chapteradd/></RoleAuth>)
+     },
+     {
+      path:"/teacher/create/standard",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><StandardAdd/></RoleAuth>)
      },
     
     ]
