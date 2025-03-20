@@ -150,7 +150,7 @@ const Login = () => {
                     "Login"
                   )}
                 </button>
-<div className="mt-4">  <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+<div className="mt-4">  <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
                   <GoogleLogin onSuccess={handlegooglelogin}
                   />
                 </GoogleOAuthProvider> </div>
