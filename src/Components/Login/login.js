@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,43 @@ const Login = () => {
           setErr();
         }, 4000);
       });
+  }
+
+
+  function handlegooglelogin(credentialResponse){
+    const token=credentialResponse.credential;
+
+    if(!token){
+      setErr("Some Other Error");
+      setTimeout(() => {
+        setErr();
+      }, 4000);
+      return; 
+    }
+
+    axios
+    .post(`${process.env.REACT_APP_API_URL}/api/users/google-login`, {token}, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((res) => {
+      dispatch(login(res.data.data.loggedInUser));
+      navigate(`/${res?.data?.data?.loggedInUser?.role}/dashboard`);
+    })
+    .catch((err) => {
+      if (err.response.status === 404) {
+        setErr("User Does not Exist");
+      } else if (err.response.status === 401) {
+        setErr("Wrong Password");
+      } else {
+        setErr("Some Other Error");
+      }
+      setloggin(false);
+      setTimeout(() => {
+        setErr();
+      }, 4000);
+    });
+
   }
 
   return (
@@ -112,6 +150,11 @@ const Login = () => {
                     "Login"
                   )}
                 </button>
+<div className="mt-4">  <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+                  <GoogleLogin onSuccess={handlegooglelogin}
+                  />
+                </GoogleOAuthProvider> </div>
+              
               </div>
               {err && (
                 <div className="text-red-500 font-medium">
