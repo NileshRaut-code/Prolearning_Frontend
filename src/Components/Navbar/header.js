@@ -17,8 +17,16 @@ import Avatar from "./avatar";
 const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
   const data = useSelector((store) => store.user.data);
   const [isTestDropdownOpen, setTestDropdownOpen] = useState(false);
+  const [isContentDropdownOpen, setContentDropdownOpen] = useState(false);
+  
   const toggleTestDropdown = () => {
     setTestDropdownOpen(!isTestDropdownOpen);
+    setContentDropdownOpen(false);
+  };
+  
+  const toggleContentDropdown = () => {
+    setContentDropdownOpen(!isContentDropdownOpen);
+    setTestDropdownOpen(false);
   };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -115,6 +123,15 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
       condition: data?.role === "TEACHER",
     },
     {
+      name: "Content Creation",
+      to: "#",
+      icon: <FaBook size={21} color="black" />,
+      hoverIcon: <FaBook size={21} color="gray" />,
+      condition: data?.role === "TEACHER",
+      dropdown: true,
+      isContentDropdown: true,
+    },
+    {
       name: "Admin Panel",
       to: `/${data?.role}/Changerole`,
       icon: <MdSupervisorAccount size={21} color="black" />,
@@ -181,6 +198,12 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
                 className="text-sm text-gray-600 hover:bg-purple-100 hover:text-purple-700 py-2 px-3 rounded-md font-medium transition-colors"
               >
                 AI Generator
+              </Link>
+              <Link
+                to="/teacher/create/subject"
+                className="text-sm text-gray-600 hover:bg-teal-100 hover:text-teal-700 py-2 px-3 rounded-md font-medium transition-colors"
+              >
+                Create Content
               </Link>
               <Link
                 to="/teacher/test-management"
@@ -307,10 +330,10 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
               <>
                 <button
                   className="flex justify-between gap-2 p-2 w-full text-left rounded-md transition-colors group"
-                  onClick={toggleTestDropdown}
+                  onClick={tab.isContentDropdown ? toggleContentDropdown : toggleTestDropdown}
                 >
                   <div className="flex flex-row items-center ">
-                    {isTestDropdownOpen ? tab.hoverIcon : tab.icon}
+                    {(tab.isContentDropdown ? isContentDropdownOpen : isTestDropdownOpen) ? tab.hoverIcon : tab.icon}
                     <span className="text-lg text-gray-700 px-2 font-medium group-hover:text-gray-800">
                       {tab.name}
                     </span>
@@ -322,7 +345,7 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
                     />
                   </div>
                 </button>
-                {isTestDropdownOpen && (
+                {isTestDropdownOpen && !tab.isContentDropdown && (
                   <div className="ml-4 mt-2 bg-white shadow-md rounded-md border border-gray-200">
                     {data?.role === "STUDENT" && (
                       <>
@@ -386,6 +409,39 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
                         </Link>
                       </>
                     )}
+                  </div>
+                )}
+                
+                {isContentDropdownOpen && tab.isContentDropdown && (
+                  <div className="ml-4 mt-2 bg-white shadow-md rounded-md border border-gray-200">
+                    <Link
+                      to="/teacher/create/standard"
+                      className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <FaUserFriends className="inline mr-2" size={16} />
+                      Create Standard
+                    </Link>
+                    <Link
+                      to="/teacher/create/subject"
+                      className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <FaBook className="inline mr-2" size={16} />
+                      Create Subject
+                    </Link>
+                    <Link
+                      to="/teacher/create/chapter"
+                      className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <FaChartLine className="inline mr-2" size={16} />
+                      Create Chapter
+                    </Link>
+                    <Link
+                      to="/teacher/create/topic"
+                      className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      <FaBrain className="inline mr-2" size={16} />
+                      Create Topic
+                    </Link>
                   </div>
                 )}
               </>

@@ -19,7 +19,11 @@ import {
   FaArrowRight,
   FaCalendarAlt,
   FaQuestionCircle,
-  FaFileAlt
+  FaFileAlt,
+  FaLayerGroup,
+  FaBookOpen,
+  FaListAlt,
+  FaCog
 } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
@@ -413,6 +417,59 @@ const TeacherDashboard = () => {
                 <p className="text-sm">Activity will appear here as students take tests</p>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Content Management */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+            <FaCog className="mr-2 text-gray-600" />
+            Content Management
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              to="/teacher/create/standard"
+              className="flex items-center p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200"
+            >
+              <FaLayerGroup className="text-2xl text-indigo-500 mr-3" />
+              <div>
+                <h4 className="font-semibold text-gray-800">Create Standard</h4>
+                <p className="text-sm text-gray-600">Add new standards</p>
+              </div>
+            </Link>
+            
+            <Link
+              to="/teacher/create/subject"
+              className="flex items-center p-4 bg-teal-50 rounded-lg hover:bg-teal-100 transition-colors border border-teal-200"
+            >
+              <FaBookOpen className="text-2xl text-teal-500 mr-3" />
+              <div>
+                <h4 className="font-semibold text-gray-800">Create Subject</h4>
+                <p className="text-sm text-gray-600">Add new subjects</p>
+              </div>
+            </Link>
+            
+            <Link
+              to="/teacher/create/chapter"
+              className="flex items-center p-4 bg-pink-50 rounded-lg hover:bg-pink-100 transition-colors border border-pink-200"
+            >
+              <FaBook className="text-2xl text-pink-500 mr-3" />
+              <div>
+                <h4 className="font-semibold text-gray-800">Create Chapter</h4>
+                <p className="text-sm text-gray-600">Add new chapters</p>
+              </div>
+            </Link>
+            
+            <Link
+              to="/teacher/create/topic"
+              className="flex items-center p-4 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors border border-amber-200"
+            >
+              <FaListAlt className="text-2xl text-amber-500 mr-3" />
+              <div>
+                <h4 className="font-semibold text-gray-800">Create Topic</h4>
+                <p className="text-sm text-gray-600">Add new topics</p>
+              </div>
+            </Link>
           </div>
         </div>
 
