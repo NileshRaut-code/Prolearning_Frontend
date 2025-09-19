@@ -1,16 +1,17 @@
-import React ,{ useState } from 'react'
-import Header from '../../Navbar/header.js'
-import Home from"./Home.js"
-const Teacher = () => {
-  const [isSideNavOpen, setIsSideNavOpen] = useState(false)
-  return (
-   <div className={`${isSideNavOpen? 'sm:ml-64': ''}`} >
-   <Header isSideNavOpen={isSideNavOpen} setIsSideNavOpen={setIsSideNavOpen}/>
-    <Home/>
-   </div>
-  )
-}
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default Teacher
+const Teacher = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to the new teacher dashboard
+    navigate('/teacher/dashboard-new', { replace: true });
+  }, [navigate]);
+
+  return null; // This component just redirects
+};
+
+export default Teacher;
 
 

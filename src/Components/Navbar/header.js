@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { FaAngleRight, FaSearch } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { FaAngleRight, FaSearch, FaUserFriends, FaBrain, FaChartLine } from "react-icons/fa";
+import { IoMdClose, IoIosRefresh } from "react-icons/io";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoBookOutline } from "react-icons/io5";
 import { LiaClipboardSolid } from "react-icons/lia";
 import { PiUsers } from "react-icons/pi";
-import { MdOutlineShowChart } from "react-icons/md";
+import { MdOutlineShowChart, MdSupervisorAccount } from "react-icons/md";
 import { BsClipboard2Check } from "react-icons/bs";
 
 //import { GrHomeRounded, IoBookOutline, LiaClipboardSolid, PiUsers, MdOutlineShowChart, BsClipboard2Check } from "react-icons/fa"; // React icons
@@ -48,60 +48,84 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
   // Tabs data (array)
   const tabs = [
     {
-      name: "Home",
-      to: `/${data?.role}/dashboard`,
-      icon: <GrHomeRounded size={21} color="black" />, // React Icon
-      hoverIcon: <GrHomeRounded size={21} color="gray" />, // Hover icon color
+      name: "Dashboard",
+      to: data?.role === "STUDENT" ? "/student/dashboard-new" : 
+           data?.role === "TEACHER" ? "/teacher/dashboard-new" : 
+           data?.role === "PARENT" ? "/parent/dashboard-new" : 
+           `/${data?.role}/dashboard`,
+      icon: <GrHomeRounded size={21} color="black" />,
+      hoverIcon: <GrHomeRounded size={21} color="gray" />,
       condition: true,
     },
     {
       name: "Study Material",
       to: `/studymaterial`,
-      icon: <IoBookOutline size={21} color="black" />, // React Icon
-      hoverIcon: <IoBookOutline size={21} color="gray" />, // Hover icon color
+      icon: <IoBookOutline size={21} color="black" />,
+      hoverIcon: <IoBookOutline size={21} color="gray" />,
       condition: data?.role === "STUDENT" || data?.role === "TEACHER",
     },
     {
-      name: "Test",
+      name: "Tests",
       to: "#",
-      icon: <LiaClipboardSolid size={21} color="black" />, // React Icon
-      hoverIcon: <LiaClipboardSolid size={21} color="gray" />, // Hover icon color
+      icon: <LiaClipboardSolid size={21} color="black" />,
+      hoverIcon: <LiaClipboardSolid size={21} color="gray" />,
       condition: data?.role === "STUDENT" || data?.role === "TEACHER",
       dropdown: true,
     },
     {
-      name: "Assignment",
-      to: `/${data?.role}/assignment`,
-      icon: <BsClipboard2Check size={21} color="black" />, // React Icon
-      hoverIcon: <BsClipboard2Check size={21} color="gray" />, // Hover icon color
+      name: "Learning Plans",
+      to: "/student/learning-plans",
+      icon: <FaBrain size={21} color="black" />,
+      hoverIcon: <FaBrain size={21} color="gray" />,
       condition: data?.role === "STUDENT",
     },
     {
       name: "Performance",
-      to: `/${data?.role}/performance`,
-      icon: <MdOutlineShowChart size={21} color="black" />, // React Icon
-      hoverIcon: <MdOutlineShowChart size={21} color="gray" />, // Hover icon color
-      condition:data?.role === "STUDENT" || data?.role === "PARENT",
+      to: data?.role === "STUDENT" ? "/student/performance-dashboard" : `/${data?.role}/performance`,
+      icon: <FaChartLine size={21} color="black" />,
+      hoverIcon: <FaChartLine size={21} color="gray" />,
+      condition: data?.role === "STUDENT" || data?.role === "PARENT",
+    },
+    {
+      name: "Parent Linking",
+      to: "/student/parent-linking",
+      icon: <FaUserFriends size={21} color="black" />,
+      hoverIcon: <FaUserFriends size={21} color="gray" />,
+      condition: data?.role === "STUDENT",
     },
     {
       name: "Community",
       to: `/${data?.role}/community`,
-      icon: <PiUsers size={21} color="black" />, // React Icon
-      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      icon: <PiUsers size={21} color="black" />,
+      hoverIcon: <PiUsers size={21} color="gray" />,
       condition: data?.role === "STUDENT",
     },
     {
-      name: "Changerole",
+      name: "Test Management",
+      to: "/teacher/test-management",
+      icon: <BsClipboard2Check size={21} color="black" />,
+      hoverIcon: <BsClipboard2Check size={21} color="gray" />,
+      condition: data?.role === "TEACHER",
+    },
+    {
+      name: "AI Test Generator",
+      to: "/teacher/create/ai-test",
+      icon: <FaBrain size={21} color="black" />,
+      hoverIcon: <FaBrain size={21} color="gray" />,
+      condition: data?.role === "TEACHER",
+    },
+    {
+      name: "Admin Panel",
       to: `/${data?.role}/Changerole`,
-      icon: <PiUsers size={21} color="black" />, // React Icon
-      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      icon: <MdSupervisorAccount size={21} color="black" />,
+      hoverIcon: <MdSupervisorAccount size={21} color="gray" />,
       condition: data?.role === "SUPERADMIN",
     },
     {
       name: "Notifications",
       to: `/${data?.role}/Notifications`,
-      icon: <PiUsers size={21} color="black" />, // React Icon
-      hoverIcon: <PiUsers size={21} color="gray" />, // Hover icon color
+      icon: <MdOutlineShowChart size={21} color="black" />,
+      hoverIcon: <MdOutlineShowChart size={21} color="gray" />,
       condition: data?.role === "SUPERADMIN",
     },
   ];
@@ -125,31 +149,58 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
         </span>
       </div> */}
       <div className="flex items-center space-x-4">
-  <Link
-    to="/courses"
-    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
-  >
-    Courses
-  </Link>
-  <Link
-    to="/ai-tool"
-    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
-  >
-    Contest 
-  </Link>
-  <Link
-    to="/blog"
-    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
-  >
-    Blog
-  </Link>
-  <Link
-    to="/other"
-    className="text-lg text-gray-700 hover:bg-gray-300 hover:text-gray-900 py-2 px-4 rounded-md font-bold transition-colors"
-  >
-    Other
-  </Link>
-</div>
+        <div className="flex items-center space-x-3">
+          <span className="text-xl font-semibold text-gray-700">
+            Welcome, {data?.fullName}!
+          </span>
+        </div>
+        
+        {/* Quick Access Links */}
+        <div className="hidden md:flex items-center space-x-2">
+          {data?.role === "STUDENT" && (
+            <>
+              <Link
+                to="/student/test-dashboard"
+                className="text-sm text-gray-600 hover:bg-blue-100 hover:text-blue-700 py-2 px-3 rounded-md font-medium transition-colors"
+              >
+                Quick Test
+              </Link>
+              <Link
+                to="/student/learning-plans"
+                className="text-sm text-gray-600 hover:bg-green-100 hover:text-green-700 py-2 px-3 rounded-md font-medium transition-colors"
+              >
+                My Plans
+              </Link>
+            </>
+          )}
+          
+          {data?.role === "TEACHER" && (
+            <>
+              <Link
+                to="/teacher/create/ai-test"
+                className="text-sm text-gray-600 hover:bg-purple-100 hover:text-purple-700 py-2 px-3 rounded-md font-medium transition-colors"
+              >
+                AI Generator
+              </Link>
+              <Link
+                to="/teacher/test-management"
+                className="text-sm text-gray-600 hover:bg-blue-100 hover:text-blue-700 py-2 px-3 rounded-md font-medium transition-colors"
+              >
+                Manage Tests
+              </Link>
+            </>
+          )}
+          
+          {data?.role === "PARENT" && (
+            <Link
+              to="/parent/dashboard-new"
+              className="text-sm text-gray-600 hover:bg-green-100 hover:text-green-700 py-2 px-3 rounded-md font-medium transition-colors"
+            >
+              Child Progress
+            </Link>
+          )}
+        </div>
+      </div>
 
     </div>
     <div className="relative" ref={dropdownRef}>
@@ -174,25 +225,57 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
         </button>
       </div>
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-          <Link
-            to={`/${data?.role}/dashboard`}
-            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
-          >
-            Home
-          </Link>
-          <Link
-            to="/profile"
-            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
-          >
-            Profile
-          </Link>
-          <Link
-            to="/logout"
-            className="block px-4 py-2 text-gray-800 hover:bg-gray-300"
-          >
-            Logout
-          </Link>
+        <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+          <div className="py-2">
+            <div className="px-4 py-2 text-sm text-gray-500 border-b border-gray-200">
+              {data?.fullName} ({data?.role})
+            </div>
+            
+            <Link
+              to={data?.role === "STUDENT" ? "/student/dashboard-new" : 
+                   data?.role === "TEACHER" ? "/teacher/dashboard-new" : 
+                   data?.role === "PARENT" ? "/parent/dashboard-new" : 
+                   `/${data?.role}/dashboard`}
+              className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+            >
+              <GrHomeRounded className="inline mr-2" size={16} />
+              Dashboard
+            </Link>
+            
+            {data?.role === "STUDENT" && (
+              <>
+                <Link
+                  to="/student/performance-dashboard"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+                >
+                  <FaChartLine className="inline mr-2" size={16} />
+                  Performance
+                </Link>
+                <Link
+                  to="/student/parent-linking"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+                >
+                  <FaUserFriends className="inline mr-2" size={16} />
+                  Parent Linking
+                </Link>
+              </>
+            )}
+            
+            <div className="border-t border-gray-200 mt-2 pt-2">
+              <Link
+                to="/profile"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+              >
+                Profile Settings
+              </Link>
+              <Link
+                to="/logout"
+                className="block px-4 py-2 text-red-600 hover:bg-red-50 transition-colors"
+              >
+                Logout
+              </Link>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -240,30 +323,68 @@ const Header = ({ isSideNavOpen, setIsSideNavOpen }) => {
                   </div>
                 </button>
                 {isTestDropdownOpen && (
-                  <div className="ml-4 mt-2 bg-white shadow-md rounded-md">
+                  <div className="ml-4 mt-2 bg-white shadow-md rounded-md border border-gray-200">
                     {data?.role === "STUDENT" && (
                       <>
                         <Link
-                          to={`/student/test`}
-                          className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
+                          to="/student/test-dashboard"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
                         >
-                          MCQ Test
+                          <LiaClipboardSolid className="inline mr-2" size={16} />
+                          Test Dashboard
                         </Link>
                         <Link
-                          to={`/student/physical-test`}
-                          className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
+                          to="/student/test-browse"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
                         >
-                          Physical Test
+                          <FaSearch className="inline mr-2" size={16} />
+                          Browse Tests
+                        </Link>
+                        <div className="border-t border-gray-200 my-1"></div>
+                        <Link
+                          to="/student/test"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          MCQ Tests
+                        </Link>
+                        <Link
+                          to="/student/physical-test"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          Physical Tests
                         </Link>
                       </>
                     )}
                     {data?.role === "TEACHER" && (
-                      <Link
-                        to={`/${data?.role}/check/ptest`}
-                        className="text-lg font-medium block px-4 py-2 text-gray-700 hover:bg-gray-300"
-                      >
-                        Physical Test Check
-                      </Link>
+                      <>
+                        <Link
+                          to="/teacher/test-management"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          <BsClipboard2Check className="inline mr-2" size={16} />
+                          Test Management
+                        </Link>
+                        <Link
+                          to="/teacher/create/ai-test"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          <FaBrain className="inline mr-2" size={16} />
+                          AI Test Generator
+                        </Link>
+                        <div className="border-t border-gray-200 my-1"></div>
+                        <Link
+                          to="/teacher/create/ptest"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          Create Physical Test
+                        </Link>
+                        <Link
+                          to="/teacher/check/ptest"
+                          className="text-sm font-medium block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                        >
+                          Grade Submissions
+                        </Link>
+                      </>
                     )}
                   </div>
                 )}

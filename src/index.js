@@ -40,6 +40,23 @@ import TopicEditor from "./Components/Editor/topicEditor.js";
 import { Notfound } from "./Components/404/Notfound.js";
 import SuperHome from "./Components/Dashboard/superAdmin/SuperHome.js"
 import StandardAdd from "./Components/Dashboard/teacher/create/StandardAdd.js";
+import EnhancedTestComponent from "./Components/Dashboard/students/test/EnhancedTestComponent.js";
+import TestResultView from "./Components/Dashboard/students/results/TestResultView.js";
+import TestGradingInterface from "./Components/Dashboard/teacher/TestCheck/TestGradingInterface.js";
+import AITestGenerator from "./Components/Dashboard/teacher/create/AITestGenerator.js";
+import TestManagement from "./Components/Dashboard/teacher/TestManagement.js";
+import StudentTestDashboard from "./Components/Dashboard/students/test/StudentTestDashboard.js";
+import TestBrowse from "./Components/Dashboard/students/test/TestBrowse.js";
+import StudentDashboard from "./Components/Dashboard/students/StudentDashboard.js";
+import TeacherDashboard from "./Components/Dashboard/teacher/TeacherDashboard.js";
+import EnhancedPhysicalTest from "./Components/Dashboard/students/test/physical test/EnhancedPhysicalTest.js";
+import PhysicalTestResult from "./Components/Dashboard/students/results/PhysicalTestResult.js";
+import EnhancedTestCheck from "./Components/Dashboard/teacher/TestCheck/EnhancedTestCheck.js";
+import LearningPlan from "./Components/Dashboard/students/learning/LearningPlan.js";
+import LearningPlanList from "./Components/Dashboard/students/learning/LearningPlanList.js";
+import ParentLinking from "./Components/Dashboard/students/linking/ParentLinking.js";
+import ParentDashboard from "./Components/Dashboard/parents/ParentDashboard.js";
+import PerformanceDashboard from "./Components/Dashboard/students/performance/PerformanceDashboard.js";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -140,12 +157,12 @@ const routes = createBrowserRouter([
      {
       path:"/student/test/result/:id",
 
-      element:(<RoleAuth aut={true} role={"STUDENT"} ><HomeResult/></RoleAuth>)
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><TestResultView/></RoleAuth>)
      },
      {
       path:"/student/ptest/result/:id",
 
-      element:(<RoleAuth aut={true} role={"STUDENT"} ><Ptestres/></RoleAuth>)
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><PhysicalTestResult/></RoleAuth>)
      },
      
      {
@@ -170,9 +187,14 @@ const routes = createBrowserRouter([
       element:(<RoleAuth aut={true} role={"TEACHER"} ><TestComponent/></RoleAuth>)
      },
      {
-      path:"/teacher/check/ptest/:id",
+      path:"/TEACHER/check/ptest/:id",
 
       element:(<RoleAuth aut={true} role={"TEACHER"} ><TestCheckHome/></RoleAuth>)
+     },
+     {
+      path:"/TEACHER/check/ptest-enhanced/:id",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><EnhancedTestCheck/></RoleAuth>)
      },
      {
       path:"/teacher/check/ptest",
@@ -194,6 +216,81 @@ const routes = createBrowserRouter([
       path:"/teacher/create/standard",
 
       element:(<RoleAuth aut={true} role={"TEACHER"} ><StandardAdd/></RoleAuth>)
+     },
+     {
+      path:"/teacher/create/ai-test",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><AITestGenerator/></RoleAuth>)
+     },
+     {
+      path:"/teacher/test-management",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><TestManagement/></RoleAuth>)
+     },
+     {
+      path:"/teacher/test/:testId/results",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><TestGradingInterface/></RoleAuth>)
+     },
+     {
+      path:"/student/test/enhanced/:testId",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><EnhancedTestComponent/></RoleAuth>)
+     },
+     {
+      path:"/student/test/result/view/:resultId",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><TestResultView/></RoleAuth>)
+     },
+     {
+      path:"/student/test-dashboard",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><StudentTestDashboard/></RoleAuth>)
+     },
+     {
+      path:"/student/test-browse",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><TestBrowse/></RoleAuth>)
+     },
+     {
+      path:"/student/dashboard-new",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><StudentDashboard/></RoleAuth>)
+     },
+     {
+      path:"/teacher/dashboard-new",
+
+      element:(<RoleAuth aut={true} role={"TEACHER"} ><TeacherDashboard/></RoleAuth>)
+     },
+     {
+      path:"/student/physical-test-enhanced/:id",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><EnhancedPhysicalTest/></RoleAuth>)
+     },
+     {
+      path:"/student/learning-plan/:id",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><LearningPlan/></RoleAuth>)
+     },
+     {
+      path:"/student/learning-plans",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><LearningPlanList/></RoleAuth>)
+     },
+     {
+      path:"/student/parent-linking",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><ParentLinking/></RoleAuth>)
+     },
+     {
+      path:"/student/performance-dashboard",
+
+      element:(<RoleAuth aut={true} role={"STUDENT"} ><PerformanceDashboard/></RoleAuth>)
+     },
+     {
+      path:"/parent/dashboard-new",
+
+      element:(<RoleAuth aut={true} role={"PARENT"} ><ParentDashboard/></RoleAuth>)
      },
     
     ]

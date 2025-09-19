@@ -17,6 +17,7 @@ export const Physicaltest = () => {
   const [test, setTest] = useState(null);
   const [filteredTests, setFilteredTests] = useState(null);
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+  const [testStatuses, setTestStatuses] = useState({});
 
   // Fetch subjects
   useEffect(() => {
@@ -43,8 +44,26 @@ export const Physicaltest = () => {
           : `${process.env.REACT_APP_API_URL}/api/physicaltest/physical-tests/standard/${Id}/${subjectFilter}`;
 
         const response = await axios.get(url);
-        setTest(response.data.data);
-        setFilteredTests(response.data.data);
+        const tests = response.data.data;
+        setTest(tests);
+        setFilteredTests(tests);
+        
+        // Fetch status for each test
+        const statusPromises = tests.map(async (test) => {
+          try {
+            const statusResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/physicaltest/already_check/${test._id}`);
+            return { testId: test._id, status: statusResponse.data.data };
+          } catch (error) {
+            return { testId: test._id, status: null };
+          }
+        });
+        
+        const statuses = await Promise.all(statusPromises);
+        const statusMap = {};
+        statuses.forEach(({ testId, status }) => {
+          statusMap[testId] = status;
+        });
+        setTestStatuses(statusMap);
       } catch (error) {
         console.error('Error fetching tests:', error);
       }
@@ -59,13 +78,27 @@ export const Physicaltest = () => {
       setFilteredTests(test);
     } else {
       setFilteredTests(
-        test.filter((data) => {
-          const status = data.status || 'not submitted'; // Set default value if status is undefined or null
-          return status.toLowerCase() === statusFilter.toLowerCase();
+        test.filter((testItem) => {
+          const submission = testStatuses[testItem._id];
+          let actualStatus = 'not submitted';
+          
+          if (submission) {
+            if (submission.isPassed) {
+              actualStatus = 'completed';
+            } else if (submission.status === 'failed' && !submission.canRetry) {
+              actualStatus = 'failed';
+            } else if (submission.needsGrading) {
+              actualStatus = 'submitted';
+            } else {
+              actualStatus = 'can retry';
+            }
+          }
+          
+          return actualStatus.toLowerCase() === statusFilter.toLowerCase();
         })
       );
     }
-  }, [statusFilter, test]);
+  }, [statusFilter, test, testStatuses]);
 
   // Handle subject filter change
   const handleSubjectFilterChange = (subject) => {
@@ -103,10 +136,12 @@ export const Physicaltest = () => {
                 onChange={(e) => handleStatusFilterChange(e.target.value)}
                 className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md shadow-sm hover:bg-gray-300"
               >
-                <option value="All">Status</option>
-                <option value="submitted">Submitted</option>
+                <option value="All">All Status</option>
                 <option value="not submitted">Not Submitted</option>
-                <option value="delayed">Delayed</option>
+                <option value="submitted">Submitted</option>
+                <option value="completed">Completed</option>
+                <option value="can retry">Can Retry</option>
+                <option value="failed">Failed</option>
               </select>
               <select
                 onChange={(e) => handleSubjectFilterChange(e.target.value)}
@@ -150,35 +185,86 @@ export const Physicaltest = () => {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
                     </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredTests.map((data, index) => (
-                    <tr key={data._id}>
-                      <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/student/physical-test/${data._id}`} className="text-gray-600 hover:underline">
-                          {data?.name}
-                        </Link>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.subject}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.score}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{data?.timeDuration}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{new Date(data.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' }).replace('/', '/')}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span
-                          className={`px-2 py-1 rounded-full ${data.status === 'submitted'
-                              ? 'bg-green-100 text-green-700'
-                              : data.status === 'delayed'
-                                ? 'bg-red-100 text-red-700'
-                                : 'bg-yellow-100 text-yellow-700'
-                            }`}
-                        >
-                          {data.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {filteredTests.map((data, index) => {
+                    const submission = testStatuses[data._id];
+                    let status = 'Not Submitted';
+                    let statusColor = 'bg-gray-100 text-gray-700';
+                    let canTakeTest = true;
+                    
+                    if (submission) {
+                      if (submission.isPassed) {
+                        status = 'Completed';
+                        statusColor = 'bg-green-100 text-green-700';
+                        canTakeTest = false;
+                      } else if (submission.status === 'failed' && !submission.canRetry) {
+                        status = 'Failed';
+                        statusColor = 'bg-red-100 text-red-700';
+                        canTakeTest = false;
+                      } else if (submission.needsGrading) {
+                        status = `Submitted (Attempt ${submission.attempts})`;
+                        statusColor = 'bg-blue-100 text-blue-700';
+                        canTakeTest = submission.canRetry;
+                      } else if (submission.canRetry) {
+                        status = `Can Retry (${submission.remainingAttempts} left)`;
+                        statusColor = 'bg-yellow-100 text-yellow-700';
+                        canTakeTest = true;
+                      }
+                    }
+                    
+                    return (
+                      <tr key={data._id}>
+                        <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div>
+                            <div className="font-medium text-gray-900">{data?.name}</div>
+                            {submission && (
+                              <div className="text-sm text-gray-500">
+                                Score: {submission.score}/{data.score} ({Math.round((submission.score/data.score)*100)}%)
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">{data?.subject}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">{data?.score}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {new Date(data.dueDate).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {new Date(data.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor}`}>
+                            {status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <div className="flex space-x-2">
+                            {canTakeTest ? (
+                              <Link
+                                to={`/student/physical-test-enhanced/${data._id}`}
+                                className="text-blue-600 hover:text-blue-900 bg-blue-50 px-3 py-1 rounded-lg"
+                              >
+                                {submission ? 'Retry' : 'Take Test'}
+                              </Link>
+                            ) : (
+                              <Link
+                                to={`/student/ptest/result/${submission?._id}`}
+                                className="text-green-600 hover:text-green-900 bg-green-50 px-3 py-1 rounded-lg"
+                              >
+                                View Result
+                              </Link>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
